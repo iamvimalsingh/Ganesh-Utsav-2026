@@ -114,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, setLang, activeSection }) 
             >
               {isPlaying ? <Volume2 className="w-3.5 h-3.5 text-white" /> : <VolumeX className="w-3.5 h-3.5 text-[#D4AF37]" />}
               <span className="hidden sm:inline">
-                {isPlaying ? (lang === 'hi' ? 'भक्ति नाद 🔔' : 'Ambience On') : (lang === 'hi' ? 'भक्ति नाद' : 'Ambience')}
+                {isPlaying ? (lang === 'hi' ? 'भक्ति नाद' : 'Ambience On') : (lang === 'hi' ? 'भक्ति नाद' : 'Ambience')}
               </span>
             </button>
 

@@ -1,11 +1,11 @@
 /**
- * Pure Web Audio API Devotional Ambient Drone & Temple Bell Synthesizer
+ * Pure Web Audio API Devotional Ambient Drone & Sacred Shankh (Conch) Synthesizer
  * 
  * STRICT COMPLIANCE:
  * - NEVER autoplays
  * - Only activates on explicit user interaction
  * - Centralized Web Audio controller
- * - Exposes playBell(), playChime(), playBhaktiTone(), stopAllAudio()
+ * - Exposes playShankh(), playChime(), playBhaktiTone(), stopAllAudio()
  * - Debounces rapid clicks to prevent loud overlapping sound distortion
  * - Gracefully handles environments without Web Audio support
  */
@@ -17,8 +17,8 @@ class DevotionalAudioEngine {
   private droneGain: GainNode | null = null;
   private sfxGain: GainNode | null = null;
   private oscillators: OscillatorNode[] = [];
-  private bellIntervalId: number | null = null;
-  private lastBellTime: number = 0;
+  private shankhIntervalId: number | null = null;
+  private lastShankhTime: number = 0;
   private lastChimeTime: number = 0;
   private userHasInteracted: boolean = false;
 
@@ -30,11 +30,11 @@ class DevotionalAudioEngine {
         if (AudioContextClass) {
           this.ctx = new AudioContextClass();
           this.masterGain = this.ctx.createGain();
-          this.masterGain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+          this.masterGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
           this.masterGain.connect(this.ctx.destination);
 
           this.sfxGain = this.ctx.createGain();
-          this.sfxGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+          this.sfxGain.gain.setValueAtTime(0.4, this.ctx.currentTime);
           this.sfxGain.connect(this.masterGain);
         }
       } catch {
@@ -122,58 +122,121 @@ class DevotionalAudioEngine {
       this.oscillators.push(osc);
     });
 
-    // Play an initial soft chime
-    this.playBell(0.35);
-
-    // Schedule gentle intermittent temple chime every ~16 seconds
-    this.bellIntervalId = window.setInterval(() => {
-      if (this.isPlaying) {
-        this.playBell(0.25);
-      }
-    }, 16000);
-
     this.isPlaying = true;
   }
 
   /**
-   * Temple brass bell chime with rich harmonics and natural acoustic decay
+   * Sacred Shankh (Conch Shell) Sound Synthesizer
+   * 
+   * Characteristics:
+   * - Deep warm fundamental with subtle organic rising pitch (230 Hz -> 285 Hz)
+   * - Natural lip-reed acoustic harmonics
+   * - Gentle breath-like swell attack (~350ms)
+   * - Sustained ceremonial resonance (~1.5s)
+   * - Smooth natural fade (~0.9s)
+   * - Total duration: ~2.8 seconds
    */
-  public playBell(volume: number = 0.4) {
+  public playShankh(volume: number = 0.45) {
     const nowMs = Date.now();
-    if (nowMs - this.lastBellTime < 250) return; // Prevent harsh overlap
-    this.lastBellTime = nowMs;
+    // Prevent overlapping shankh blasts
+    if (nowMs - this.lastShankhTime < 2400) return;
+    this.lastShankhTime = nowMs;
 
     if (!this.init()) return;
     if (!this.ctx || !this.sfxGain) return;
 
-    const now = this.ctx.currentTime;
-    // Authentic temple brass bell modal frequencies
-    const bellFrequencies = [
-      { freq: 528, gain: 0.12, decay: 2.8 },    // Fundamental tone
-      { freq: 1056, gain: 0.08, decay: 2.2 },   // Octave harmonic
-      { freq: 1584, gain: 0.04, decay: 1.6 },   // Tierce harmonic
-      { freq: 2112, gain: 0.02, decay: 1.2 },   // Quint harmonic
-      { freq: 3168, gain: 0.01, decay: 0.8 },   // Shimmer
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    const shankhDuration = 2.8;
+
+    // Shankh Harmonics: Fundamental + overtone spectrum
+    const harmonics = [
+      { startFreq: 232, peakFreq: 284, endFreq: 260, gain: 0.22, type: 'sine' as OscillatorType },
+      { startFreq: 232, peakFreq: 284, endFreq: 260, gain: 0.12, type: 'triangle' as OscillatorType },
+      { startFreq: 464, peakFreq: 568, endFreq: 520, gain: 0.10, type: 'sine' as OscillatorType },
+      { startFreq: 696, peakFreq: 852, endFreq: 780, gain: 0.05, type: 'sine' as OscillatorType },
+      { startFreq: 928, peakFreq: 1136, endFreq: 1040, gain: 0.025, type: 'sine' as OscillatorType },
+      { startFreq: 1160, peakFreq: 1420, endFreq: 1300, gain: 0.012, type: 'sine' as OscillatorType },
     ];
 
-    bellFrequencies.forEach(({ freq, gain: baseGain, decay }) => {
-      if (!this.ctx || !this.sfxGain) return;
-      const osc = this.ctx.createOscillator();
-      const gainNode = this.ctx.createGain();
+    // Master envelope for the Shankh invocation
+    const shankhEnvelope = ctx.createGain();
+    shankhEnvelope.gain.setValueAtTime(0.0001, now);
+    // Breath swell attack (0 -> 0.35s)
+    shankhEnvelope.gain.exponentialRampToValueAtTime(Math.min(1.0, volume * 1.2), now + 0.35);
+    // Sustained middle (0.35s -> 1.8s)
+    shankhEnvelope.gain.setValueAtTime(Math.min(1.0, volume * 1.2), now + 1.8);
+    // Natural release / decay (1.8s -> 2.8s)
+    shankhEnvelope.gain.exponentialRampToValueAtTime(0.00001, now + shankhDuration);
+    shankhEnvelope.connect(this.sfxGain);
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now);
+    // Warm Lowpass Filter for organic resonant air-column chamber
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(750, now);
+    filter.frequency.exponentialRampToValueAtTime(1600, now + 0.4);
+    filter.frequency.exponentialRampToValueAtTime(600, now + shankhDuration);
+    filter.Q.setValueAtTime(2.5, now);
+    filter.connect(shankhEnvelope);
 
-      const targetGain = Math.max(0.0001, baseGain * volume);
-      gainNode.gain.setValueAtTime(0.0001, now);
-      gainNode.gain.exponentialRampToValueAtTime(targetGain, now + 0.015);
-      gainNode.gain.exponentialRampToValueAtTime(0.00001, now + decay);
+    // Subtle breath air noise burst during initial attack
+    try {
+      const bufferSize = ctx.sampleRate * 0.4;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = (Math.random() * 2 - 1) * 0.03;
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(800, now);
+      noiseFilter.Q.setValueAtTime(3.0, now);
 
-      osc.connect(gainNode);
-      gainNode.connect(this.sfxGain);
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.0001, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.08 * volume, now + 0.15);
+      noiseGain.gain.exponentialRampToValueAtTime(0.00001, now + 0.4);
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(shankhEnvelope);
+      noise.start(now);
+      noise.stop(now + 0.45);
+    } catch {
+      // Noise buffer fallback if restricted
+    }
+
+    // Oscillators generation for all harmonics
+    harmonics.forEach(({ startFreq, peakFreq, endFreq, gain: hGain, type }) => {
+      const osc = ctx.createOscillator();
+      const nodeGain = ctx.createGain();
+
+      osc.type = type;
+      // Natural pitch-bend curve of conch blowing
+      osc.frequency.setValueAtTime(startFreq, now);
+      osc.frequency.exponentialRampToValueAtTime(peakFreq, now + 0.45);
+      osc.frequency.setValueAtTime(peakFreq, now + 1.8);
+      osc.frequency.exponentialRampToValueAtTime(endFreq, now + shankhDuration);
+
+      // Subtle vibrato / air tremolo
+      const vibrato = ctx.createOscillator();
+      const vibratoGain = ctx.createGain();
+      vibrato.frequency.setValueAtTime(5.2, now); // ~5 Hz gentle lip modulation
+      vibratoGain.gain.setValueAtTime(1.5, now);
+      vibrato.connect(vibratoGain);
+      vibratoGain.connect(osc.frequency);
+      vibrato.start(now);
+      vibrato.stop(now + shankhDuration + 0.1);
+
+      nodeGain.gain.setValueAtTime(hGain, now);
+
+      osc.connect(nodeGain);
+      nodeGain.connect(filter);
 
       osc.start(now);
-      osc.stop(now + decay + 0.1);
+      osc.stop(now + shankhDuration + 0.1);
     });
   }
 
@@ -246,9 +309,9 @@ class DevotionalAudioEngine {
   public stop() {
     if (!this.ctx || !this.isPlaying) return;
 
-    if (this.bellIntervalId) {
-      clearInterval(this.bellIntervalId);
-      this.bellIntervalId = null;
+    if (this.shankhIntervalId) {
+      clearInterval(this.shankhIntervalId);
+      this.shankhIntervalId = null;
     }
 
     if (this.droneGain) {

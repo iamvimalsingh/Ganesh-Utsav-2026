@@ -31,18 +31,25 @@
 }
 
 /* Pure CSS Devotional Animations */
-@keyframes swing-bell {
-  0% { transform: rotate(0deg); }
-  20% { transform: rotate(18deg); }
-  40% { transform: rotate(-14deg); }
-  60% { transform: rotate(10deg); }
-  80% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
+@keyframes shankh-blow {
+  0% { transform: scale(1) rotate(0deg); }
+  20% { transform: scale(1.15) rotate(-10deg); filter: drop-shadow(0 0 8px rgba(255, 119, 34, 0.9)); }
+  50% { transform: scale(1.22) rotate(8deg); filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.95)); }
+  80% { transform: scale(1.1) rotate(-4deg); }
+  100% { transform: scale(1) rotate(0deg); filter: none; }
 }
 
-.animate-bell-swing {
-  transform-origin: top center;
-  animation: swing-bell 0.8s ease-in-out;
+.animate-shankh-blow {
+  animation: shankh-blow 2.6s ease-in-out forwards;
+}
+
+@keyframes golden-ripple {
+  0% { transform: scale(0.6); opacity: 0.95; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+.animate-golden-ripple {
+  animation: golden-ripple 2.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 
 @keyframes diya-flame {
@@ -94,7 +101,8 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .animate-bell-swing,
+  .animate-shankh-blow,
+  .animate-golden-ripple,
   .animate-diya-flame,
   .animate-golden-float,
   .animate-flower-float,

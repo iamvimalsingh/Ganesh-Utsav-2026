@@ -18,7 +18,7 @@ export const ClosingMemory: React.FC<ClosingMemoryProps> = ({ lang }) => {
           setStage(1); // Stage 1: "एक उत्सव समाप्त हुआ…"
           
           if (devotionalAudio.hasInteracted) {
-            devotionalAudio.playBell(0.25);
+            devotionalAudio.playShankh(0.32);
           }
 
           const t1 = setTimeout(() => {
