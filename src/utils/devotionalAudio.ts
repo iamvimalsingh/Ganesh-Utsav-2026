@@ -16,9 +16,16 @@ class DevotionalAudioEngine {
   private bellIntervalId: number | null = null;
 
   public init() {
+    if (typeof window === 'undefined') return;
     if (!this.ctx) {
-      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      this.ctx = new AudioContextClass();
+      try {
+        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (AudioContextClass) {
+          this.ctx = new AudioContextClass();
+        }
+      } catch {
+        this.ctx = null;
+      }
     }
   }
 
