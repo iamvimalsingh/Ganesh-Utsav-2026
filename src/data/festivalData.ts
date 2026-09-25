@@ -73,7 +73,7 @@ export interface SpecialContributor {
   accountingNoteEn: string;
 }
 
-// 5 CORRECT VISIBLE SPECIAL HONORS
+// 6 CORRECT VISIBLE SPECIAL HONORS
 export const SPECIAL_CONTRIBUTORS: SpecialContributor[] = [
   {
     id: "ajay-singh",
@@ -88,15 +88,27 @@ export const SPECIAL_CONTRIBUTORS: SpecialContributor[] = [
     accountingNoteEn: "Already represented inside the Cash Chanda record list. Not double-counted.",
   },
   {
-    id: "guddu-rai",
+    id: "guddu-rai-murti",
     nameHi: "गुड्डू राय जी",
     nameEn: "Guddu Rai Ji",
-    amountText: "राशि — आयोजक से सत्यापन",
-    purposeHi: "मूर्ति सहयोग",
-    purposeEn: "Ganesh Idol Sacred Seva",
+    amountText: "प्रतिमा स्थापना",
+    purposeHi: "श्री गणेश प्रतिमा सहयोग",
+    purposeEn: "Lord Ganesha Idol Sacred Sponsorship",
     badge: "मूर्ति सेवा",
-    accountingNoteHi: "श्री गणेश जी की पावन प्रतिमा स्थापना हेतु समर्पित सेवा।",
-    accountingNoteEn: "Sacred sponsorship and seva for Lord Ganesha idol consecration.",
+    accountingNoteHi: "श्री गणेश जी की पावन प्रतिमा स्थापना एवं प्राण-प्रतिष्ठा में समर्पित मुख्य सेवा।",
+    accountingNoteEn: "Dedicated sacred seva and sponsorship for Lord Ganesha holy idol consecration.",
+  },
+  {
+    id: "santosh-guddu-bhandara",
+    nameHi: "संतोष कुशवाहा जी एवं गुड्डू राय जी",
+    nameEn: "Santosh Kushwaha Ji & Guddu Rai Ji",
+    amountText: "₹1,500",
+    amountNum: 1500,
+    purposeHi: "महाभंडारा सहयोग",
+    purposeEn: "Mahaprasad Bhandara Seva",
+    badge: "भंडारा सेवा",
+    accountingNoteHi: "संतोष जी के साथ गुड्डू राय जी द्वारा महाभंडारे में ₹1,500 का अलग से समर्पित सहयोग व सामग्री व्यवस्था।",
+    accountingNoteEn: "Dedicated ₹1,500 bhandara seva & supplies contribution by Guddu Rai Ji together with Santosh Ji.",
   },
   {
     id: "jyoti-ji",
