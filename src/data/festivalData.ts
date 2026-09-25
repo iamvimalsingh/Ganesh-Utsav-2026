@@ -286,7 +286,7 @@ export const CASH_DONORS_32: DonorRecord[] = [
   { sNo: 17, nameHi: "मनीष (पिंकी)", nameEn: "Manish (Pinki)", amount: 1100, mode: "Cash", type: "chanda" },
   { sNo: 18, nameHi: "मैथिल जी", nameEn: "Maithil Ji", amount: 1100, mode: "Cash", type: "chanda" },
   { sNo: 19, nameHi: "रजनीश", nameEn: "Rajnish", amount: 500, mode: "Cash", type: "chanda" },
-  { sNo: 20, nameHi: "धोंगी जी / ढोंगी जी", nameEn: "Dhongi Ji", amount: 511, mode: "Cash", type: "chanda" },
+  { sNo: 20, nameHi: "डांगी जी", nameEn: "Daangi Ji", amount: 511, mode: "Cash", type: "chanda" },
   { sNo: 21, nameHi: "अजय सिंह जी", nameEn: "Ajay Singh Ji", amount: 2500, mode: "Cash", type: "chanda" },
   { sNo: 22, nameHi: "पिंकी सिंह", nameEn: "Pinki Singh", amount: 1100, mode: "Cash", type: "chanda" },
   { sNo: 23, nameHi: "लक्ष्मण जी", nameEn: "Laxman Ji", amount: 100, mode: "Cash", type: "chanda" },
