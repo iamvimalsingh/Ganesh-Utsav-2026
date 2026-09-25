@@ -3,12 +3,14 @@ import { Sparkles, ArrowDown, ShieldCheck, Image as ImageIcon } from 'lucide-rea
 import { FestiveArtwork } from './FestiveArtwork';
 import { CENTRAL_TREASURY_DATA, GROSS_COLLECTION_DATA } from '../data/festivalData';
 import { devotionalAudio } from '../utils/devotionalAudio';
+import { DrilldownTab } from './AccountingDetailDrawer';
 
 interface HeroProps {
   lang: 'hi' | 'en';
+  onOpenAccounting?: (tab?: DrilldownTab) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ lang }) => {
+export const Hero: React.FC<HeroProps> = ({ lang, onOpenAccounting }) => {
   // Bhakti Touch & Shankh states
   const [isBhaktiTouched, setIsBhaktiTouched] = useState<boolean>(false);
   const [showBhaktiToast, setShowBhaktiToast] = useState<boolean>(false);
@@ -257,41 +259,56 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
         {/* Floating Auspicious Metrics Banner */}
         <div className="mt-14 pt-8 border-t border-[#D4AF37]/30">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            <div className="bg-[#380009]/80 border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md">
-              <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1">
-                {lang === 'hi' ? 'सकल कुल संकलन' : 'Gross Collection'}
+            <button
+              onClick={() => onOpenAccounting ? onOpenAccounting('overview') : scrollTo('financials')}
+              className="bg-[#380009]/80 hover:bg-[#4D000C] border border-[#D4AF37]/60 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md transition-all group hover:scale-[1.02] cursor-pointer"
+            >
+              <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1 flex items-center justify-center gap-1">
+                <span>{lang === 'hi' ? 'सकल कुल संकलन' : 'Gross Collection'}</span>
+                <span className="text-[10px] text-[#FFDF80] underline group-hover:text-white">स्रोत देखें</span>
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-[#FFDF80]">
                 ₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}
               </span>
-            </div>
+            </button>
 
-            <div className="bg-[#380009]/80 border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md">
-              <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1">
-                {lang === 'hi' ? 'कुल केन्द्रीय व्यय' : 'Central Outflow'}
+            <button
+              onClick={() => onOpenAccounting ? onOpenAccounting('expenses') : scrollTo('expenses')}
+              className="bg-[#380009]/80 hover:bg-[#4D000C] border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md transition-all group hover:scale-[1.02] cursor-pointer"
+            >
+              <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1 flex items-center justify-center gap-1">
+                <span>{lang === 'hi' ? 'कुल केन्द्रीय व्यय' : 'Central Outflow'}</span>
+                <span className="text-[10px] text-[#FFA07A] underline group-hover:text-white">विवरण</span>
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-[#FFA07A]">
                 ₹{CENTRAL_TREASURY_DATA.totalOutflow.toLocaleString('en-IN')}
               </span>
-            </div>
+            </button>
 
-            <div className="bg-[#380009]/80 border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md">
-              <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1">
-                {lang === 'hi' ? 'प्रारंभिक शेष' : 'Initial Balance'}
+            <button
+              onClick={() => onOpenAccounting ? onOpenAccounting('central') : scrollTo('financials')}
+              className="bg-[#380009]/80 hover:bg-[#4D000C] border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md transition-all group hover:scale-[1.02] cursor-pointer"
+            >
+              <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1 flex items-center justify-center gap-1">
+                <span>{lang === 'hi' ? 'प्रारंभिक शेष' : 'Initial Balance'}</span>
+                <span className="text-[10px] text-stone-300 underline group-hover:text-white">लेखा</span>
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-[#FFFDF7]">
                 ₹{CENTRAL_TREASURY_DATA.preliminaryHandBalance.toLocaleString('en-IN')}
               </span>
-            </div>
+            </button>
 
-            <div className="bg-gradient-to-br from-[#2A0006] to-[#45000A] border-2 border-emerald-400 rounded-2xl p-4 text-center shadow-xl">
+            <button
+              onClick={() => onOpenAccounting ? onOpenAccounting('central') : scrollTo('financials')}
+              className="bg-gradient-to-br from-[#2A0006] to-[#45000A] hover:from-[#3D0009] hover:to-[#5A0010] border-2 border-emerald-400 rounded-2xl p-4 text-center shadow-xl transition-all group hover:scale-[1.02] cursor-pointer"
+            >
               <span className="block text-xs text-emerald-300 font-bold mb-1">
                 {lang === 'hi' ? 'अंतिम शुद्ध बचत' : 'Final Net Savings'}
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-emerald-400">
                 ₹{CENTRAL_TREASURY_DATA.finalNetSavings.toLocaleString('en-IN')}
               </span>
-            </div>
+            </button>
           </div>
         </div>
       </div>

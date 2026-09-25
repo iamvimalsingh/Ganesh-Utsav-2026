@@ -1,12 +1,15 @@
 import React from 'react';
-import { CENTRAL_TREASURY_DATA, ONLINE_AUDIT_INFO, GROSS_COLLECTION_DATA } from '../data/festivalData';
+import { CENTRAL_TREASURY_DATA, ONLINE_AUDIT_INFO, GROSS_COLLECTION_DATA, DiaryEvidenceItem } from '../data/festivalData';
 import { ShieldCheck, TrendingUp, TrendingDown, Wallet, ArrowRight, Minus, Plus, Equal, CheckCircle, ShieldAlert, Sparkles, Smartphone, Banknote, Utensils, HelpCircle } from 'lucide-react';
+import { DrilldownTab } from './AccountingDetailDrawer';
 
 interface FinancialDashboardProps {
   lang: 'hi' | 'en';
+  onOpenAccounting?: (tab?: DrilldownTab) => void;
+  onOpenEvidence?: (item: DiaryEvidenceItem) => void;
 }
 
-export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) => {
+export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, onOpenAccounting, onOpenEvidence }) => {
   return (
     <section id="financials" className="py-16 md:py-24 bg-gradient-to-b from-[#FFFDF7] via-[#FFFBF0] to-[#FFFDF7] text-[#2D1B10]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,19 +30,23 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
         {/* 4 Core Headline Summary Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
           {/* Card 1: Gross Total Collection (₹62,640) */}
-          <div className="bg-gradient-to-br from-emerald-50 via-white to-emerald-50 rounded-3xl border-2 border-emerald-500/60 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between relative overflow-hidden">
+          <div
+            onClick={() => onOpenAccounting && onOpenAccounting('overview')}
+            className="bg-gradient-to-br from-emerald-50 via-white to-emerald-50 rounded-3xl border-2 border-emerald-500/60 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between relative overflow-hidden cursor-pointer group"
+          >
             <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-200/40 rounded-full blur-xl pointer-events-none" />
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold shadow-sm">
                   <TrendingUp className="w-6 h-6" />
                 </span>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/80 px-2.5 py-1 rounded-lg border border-emerald-300">
-                  {lang === 'hi' ? 'सकल कुल संकलन' : 'Gross Collection'}
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/80 px-2.5 py-1 rounded-lg border border-emerald-300 flex items-center gap-1">
+                  <span>{lang === 'hi' ? 'सकल कुल संकलन' : 'Gross Collection'}</span>
+                  <span className="text-xs text-[#780016] font-extrabold">• विवरण देखें</span>
                 </span>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-serif font-black text-emerald-950">
+                <div className="text-3xl sm:text-4xl font-serif font-black text-emerald-950 group-hover:text-emerald-700 transition-colors">
                   ₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}
                 </div>
                 <p className="text-xs text-emerald-800 font-medium mt-1">
@@ -48,18 +55,24 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
               </div>
             </div>
             <div className="mt-4 pt-3 border-t border-emerald-200/70">
-              <a
-                href="#gross-breakdown"
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onOpenAccounting) onOpenAccounting('overview');
+                }}
                 className="inline-flex items-center gap-1 text-xs font-bold text-emerald-900 hover:text-emerald-700 transition-colors"
               >
-                <span>{lang === 'hi' ? '₹62,640 का पूरा गणित देखें' : 'View ₹62,640 Math Breakdown'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+                <span>{lang === 'hi' ? '₹62,640 का पूरा गणित व स्रोत देखें →' : 'View ₹62,640 Math & Evidence →'}</span>
+              </button>
             </div>
           </div>
 
           {/* Card 2: Total Outflow */}
-          <div className="bg-white rounded-3xl border-2 border-rose-400/40 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between">
+          <div
+            onClick={() => onOpenAccounting && onOpenAccounting('expenses')}
+            className="bg-white rounded-3xl border-2 border-rose-400/40 hover:border-rose-500 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between cursor-pointer group"
+          >
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="w-11 h-11 rounded-2xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold">
@@ -70,7 +83,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
                 </span>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-serif font-black text-rose-950">
+                <div className="text-3xl sm:text-4xl font-serif font-black text-rose-950 group-hover:text-rose-700 transition-colors">
                   ₹{CENTRAL_TREASURY_DATA.totalOutflow.toLocaleString('en-IN')}
                 </div>
                 <p className="text-xs text-stone-500 mt-1">
@@ -79,18 +92,24 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
               </div>
             </div>
             <div className="mt-4 pt-3 border-t border-rose-100">
-              <a
-                href="#expenses"
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onOpenAccounting) onOpenAccounting('expenses');
+                }}
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#780016] hover:text-[#FF7722] transition-colors"
               >
-                <span>{lang === 'hi' ? 'खर्च का विवरण देखें' : 'View Expense Breakdown'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+                <span>{lang === 'hi' ? 'खर्च का विवरण व वाउचर देखें →' : 'View Expense Breakdown & Vouchers →'}</span>
+              </button>
             </div>
           </div>
 
           {/* Card 3: Preliminary Hand Balance */}
-          <div className="bg-white rounded-3xl border-2 border-amber-400/40 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between">
+          <div
+            onClick={() => onOpenAccounting && onOpenAccounting('central')}
+            className="bg-white rounded-3xl border-2 border-amber-400/40 hover:border-amber-500 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between cursor-pointer group"
+          >
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="w-11 h-11 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
@@ -101,7 +120,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
                 </span>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-serif font-black text-amber-950">
+                <div className="text-3xl sm:text-4xl font-serif font-black text-amber-950 group-hover:text-amber-700 transition-colors">
                   ₹{CENTRAL_TREASURY_DATA.preliminaryHandBalance.toLocaleString('en-IN')}
                 </div>
                 <p className="text-xs text-stone-500 mt-1">
@@ -110,13 +129,16 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
               </div>
             </div>
             <div className="mt-4 pt-3 border-t border-amber-100">
-              <a
-                href="#evidence"
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onOpenAccounting) onOpenAccounting('central');
+                }}
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#780016] hover:text-[#FF7722] transition-colors"
               >
-                <span>{lang === 'hi' ? 'मूल लेखा देखें' : 'View Source Evidence'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+                <span>{lang === 'hi' ? 'केंद्रीय खाता विवरण देखें →' : 'View Central Account →'}</span>
+              </button>
             </div>
           </div>
 
@@ -209,7 +231,10 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
             {/* 3 Component Breakdown Columns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Box 1: Online Chanda */}
-              <div className="bg-stone-50 rounded-2xl border border-stone-200 p-5 flex flex-col justify-between">
+              <div
+                onClick={() => onOpenAccounting && onOpenAccounting('online')}
+                className="bg-stone-50 hover:bg-blue-50/50 rounded-2xl border-2 border-stone-200 hover:border-blue-400 p-5 flex flex-col justify-between cursor-pointer transition-all shadow-sm group"
+              >
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold uppercase text-stone-600 bg-white px-2.5 py-1 rounded-md border border-stone-200 flex items-center gap-1">
@@ -218,7 +243,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
                     </span>
                     <span className="text-xs text-stone-500 font-bold">40 प्रविष्टियाँ</span>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-serif font-black text-stone-900 mt-1">
+                  <div className="text-2xl sm:text-3xl font-serif font-black text-stone-900 group-hover:text-blue-900 mt-1">
                     ₹{GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')}
                   </div>
                   <p className="text-xs text-stone-600 mt-2 leading-relaxed">
@@ -226,14 +251,24 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-stone-200 text-right">
-                  <a href="#donors" className="text-xs font-bold text-[#780016] hover:underline">
-                    40 नाम देखें →
-                  </a>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onOpenAccounting) onOpenAccounting('online');
+                    }}
+                    className="text-xs font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    40 नाम व साक्ष्य देखें →
+                  </button>
                 </div>
               </div>
 
               {/* Box 2: Cash Chanda */}
-              <div className="bg-stone-50 rounded-2xl border border-stone-200 p-5 flex flex-col justify-between">
+              <div
+                onClick={() => onOpenAccounting && onOpenAccounting('cash')}
+                className="bg-stone-50 hover:bg-emerald-50/50 rounded-2xl border-2 border-stone-200 hover:border-emerald-400 p-5 flex flex-col justify-between cursor-pointer transition-all shadow-sm group"
+              >
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold uppercase text-stone-600 bg-white px-2.5 py-1 rounded-md border border-stone-200 flex items-center gap-1">
@@ -242,7 +277,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
                     </span>
                     <span className="text-xs text-stone-500 font-bold">32 प्रविष्टियाँ</span>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-serif font-black text-stone-900 mt-1">
+                  <div className="text-2xl sm:text-3xl font-serif font-black text-stone-900 group-hover:text-emerald-900 mt-1">
                     ₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}
                   </div>
                   <p className="text-xs text-stone-600 mt-2 leading-relaxed">
@@ -250,14 +285,24 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-stone-200 text-right">
-                  <a href="#donors" className="text-xs font-bold text-[#780016] hover:underline">
-                    32 नाम देखें →
-                  </a>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onOpenAccounting) onOpenAccounting('cash');
+                    }}
+                    className="text-xs font-bold text-emerald-700 hover:text-emerald-900"
+                  >
+                    32 नाम व साक्ष्य देखें →
+                  </button>
                 </div>
               </div>
 
               {/* Box 3: Dedicated Bhandara */}
-              <div className="bg-amber-50/70 rounded-2xl border border-amber-300 p-5 flex flex-col justify-between">
+              <div
+                onClick={() => onOpenAccounting && onOpenAccounting('bhandara')}
+                className="bg-amber-50/70 hover:bg-amber-100/60 rounded-2xl border-2 border-amber-300 hover:border-amber-500 p-5 flex flex-col justify-between cursor-pointer transition-all shadow-sm group"
+              >
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold uppercase text-amber-900 bg-amber-100 px-2.5 py-1 rounded-md border border-amber-300 flex items-center gap-1">
@@ -274,9 +319,16 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang }) 
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-amber-200 text-right">
-                  <a href="#honors" className="text-xs font-bold text-[#780016] hover:underline">
-                    सहयोगी देखें →
-                  </a>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onOpenAccounting) onOpenAccounting('bhandara');
+                    }}
+                    className="text-xs font-bold text-[#780016] hover:text-[#FF7722]"
+                  >
+                    4 सहयोगी व साक्ष्य देखें →
+                  </button>
                 </div>
               </div>
             </div>

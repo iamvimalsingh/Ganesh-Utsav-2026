@@ -21,11 +21,34 @@ import { ExpenseBreakdown } from './components/ExpenseBreakdown';
 import { MemoryCounter } from './components/MemoryCounter';
 import { ClosingMemory } from './components/ClosingMemory';
 import { NoticeAndFooter } from './components/NoticeAndFooter';
+import { AccountingDetailDrawer, DrilldownTab } from './components/AccountingDetailDrawer';
+import { DiaryEvidenceItem } from './data/festivalData';
 
 export default function App() {
   const [introFinished, setIntroFinished] = useState(false);
   const [lang, setLang] = useState<'hi' | 'en'>('hi');
   const [activeSection, setActiveSection] = useState<string>('hero');
+
+  // Accounting Detail Drawer state
+  const [isAccountingOpen, setIsAccountingOpen] = useState(false);
+  const [accountingTab, setAccountingTab] = useState<DrilldownTab>('overview');
+  const [activeEvidenceItem, setActiveEvidenceItem] = useState<DiaryEvidenceItem | null>(null);
+
+  const handleOpenAccounting = (tab: DrilldownTab = 'overview') => {
+    setAccountingTab(tab);
+    setIsAccountingOpen(true);
+  };
+
+  const handleOpenEvidence = (item: DiaryEvidenceItem) => {
+    setActiveEvidenceItem(item);
+    // Scroll smoothly to evidence section if needed
+    const element = document.getElementById('evidence');
+    if (element) {
+      const yOffset = -70;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +106,7 @@ export default function App() {
       {/* Main Content Experience */}
       <main className="flex-grow">
         {/* 1. Hero: Cinematic Real Ganesh Darshan + Bhakti Touch + Interactive Bell */}
-        <Hero lang={lang} />
+        <Hero lang={lang} onOpenAccounting={handleOpenAccounting} />
 
         {/* 2. Festival Introduction: Spirit of Community Seva */}
         <Introduction lang={lang} />
@@ -107,16 +130,24 @@ export default function App() {
         <SpecialHonors lang={lang} />
 
         {/* 9. Financial Transparency Dashboard: "जिसका हिसाब रखा" */}
-        <FinancialDashboard lang={lang} />
+        <FinancialDashboard
+          lang={lang}
+          onOpenAccounting={handleOpenAccounting}
+          onOpenEvidence={handleOpenEvidence}
+        />
 
         {/* 10. Original Diary Evidence: "और जिसका मूल प्रमाण यहाँ है" ("मूल लेखा साक्ष्य") */}
-        <DiaryEvidence lang={lang} />
+        <DiaryEvidence
+          lang={lang}
+          externalActiveItem={activeEvidenceItem}
+          onCloseExternalItem={() => setActiveEvidenceItem(null)}
+        />
 
         {/* 11. Chanda Collection Ledger: Online Chanda (40) & Cash Chanda (32) */}
-        <ChandaLedger lang={lang} />
+        <ChandaLedger lang={lang} onOpenEvidence={handleOpenEvidence} />
 
         {/* 12. Itemized Expense Breakdown */}
-        <ExpenseBreakdown lang={lang} />
+        <ExpenseBreakdown lang={lang} onOpenEvidence={handleOpenEvidence} />
 
         {/* 13. Festival Memory Counter */}
         <MemoryCounter lang={lang} />
@@ -124,6 +155,18 @@ export default function App() {
         {/* 14. Closing Emotional Festival Memory (Visarjan Closing Experience) */}
         <ClosingMemory lang={lang} />
       </main>
+
+      {/* Accounting Drill-Down Side Drawer / Modal */}
+      <AccountingDetailDrawer
+        isOpen={isAccountingOpen}
+        onClose={() => setIsAccountingOpen(false)}
+        initialTab={accountingTab}
+        lang={lang}
+        onOpenEvidence={(item) => {
+          setIsAccountingOpen(false);
+          handleOpenEvidence(item);
+        }}
+      />
 
       {/* 15. Required Verification Notice & Footer */}
       <NoticeAndFooter lang={lang} />

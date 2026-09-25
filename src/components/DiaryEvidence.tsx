@@ -5,12 +5,22 @@ import { FileSpreadsheet, ZoomIn, ZoomOut, X, ChevronLeft, ChevronRight, ShieldC
 
 interface DiaryEvidenceProps {
   lang: 'hi' | 'en';
+  externalActiveItem?: DiaryEvidenceItem | null;
+  onCloseExternalItem?: () => void;
 }
 
-export const DiaryEvidence: React.FC<DiaryEvidenceProps> = ({ lang }) => {
+export const DiaryEvidence: React.FC<DiaryEvidenceProps> = ({ lang, externalActiveItem, onCloseExternalItem }) => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'online' | 'cash' | 'bhandara' | 'expenses' | 'summary'>('all');
   const [activeItem, setActiveItem] = useState<DiaryEvidenceItem | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
+
+  // Sync external active item
+  useEffect(() => {
+    if (externalActiveItem) {
+      setActiveItem(externalActiveItem);
+      setZoomLevel(1);
+    }
+  }, [externalActiveItem]);
 
   const filterTabs = [
     { key: 'all', labelHi: 'सभी अभिलेख (७)', labelEn: 'All Evidence (7)' },
@@ -33,6 +43,9 @@ export const DiaryEvidence: React.FC<DiaryEvidenceProps> = ({ lang }) => {
   const handleCloseLightbox = () => {
     setActiveItem(null);
     setZoomLevel(1);
+    if (onCloseExternalItem) {
+      onCloseExternalItem();
+    }
   };
 
   const handleNext = () => {

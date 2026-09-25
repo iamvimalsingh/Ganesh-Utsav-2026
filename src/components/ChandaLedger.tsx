@@ -1,15 +1,19 @@
 import React, { useState, useMemo } from 'react';
-import { ONLINE_DONORS_40, CASH_DONORS_32, ONLINE_AUDIT_INFO, DonorRecord } from '../data/festivalData';
-import { Search, ShieldAlert, CheckCircle2, ArrowUpDown, Smartphone, Banknote } from 'lucide-react';
+import { ONLINE_DONORS_40, CASH_DONORS_32, ONLINE_AUDIT_INFO, DIARY_EVIDENCE_ITEMS, DiaryEvidenceItem } from '../data/festivalData';
+import { Search, ShieldAlert, CheckCircle2, ArrowUpDown, Smartphone, Banknote, ZoomIn } from 'lucide-react';
 
 interface ChandaLedgerProps {
   lang: 'hi' | 'en';
+  onOpenEvidence?: (item: DiaryEvidenceItem) => void;
 }
 
-export const ChandaLedger: React.FC<ChandaLedgerProps> = ({ lang }) => {
+export const ChandaLedger: React.FC<ChandaLedgerProps> = ({ lang, onOpenEvidence }) => {
   const [activeTab, setActiveTab] = useState<'online' | 'cash'>('online');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'sNo' | 'amountDesc' | 'amountAsc'>('sNo');
+
+  const onlineDiaryItem = DIARY_EVIDENCE_ITEMS.find((i) => i.id === 'diary-online-part1') || DIARY_EVIDENCE_ITEMS[1];
+  const cashDiaryItem = DIARY_EVIDENCE_ITEMS.find((i) => i.id === 'diary-cash-ledger') || DIARY_EVIDENCE_ITEMS[4];
 
   const currentDataset = activeTab === 'online' ? ONLINE_DONORS_40 : CASH_DONORS_32;
 
@@ -100,9 +104,20 @@ export const ChandaLedger: React.FC<ChandaLedgerProps> = ({ lang }) => {
                   <h3 className="text-base font-serif font-bold text-[#780016]">
                     {lang === 'hi' ? 'ऑनलाइन चंदा लेखा सत्यापन' : 'Online Chanda Audit Note'}
                   </h3>
-                  <span className="text-[11px] font-semibold text-amber-900 bg-amber-200/80 px-2.5 py-0.5 rounded">
-                    {lang === 'hi' ? 'अंतर: +₹950' : 'Difference: +₹950'}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-semibold text-amber-900 bg-amber-200/80 px-2.5 py-0.5 rounded">
+                      {lang === 'hi' ? 'अंतर: +₹950' : 'Difference: +₹950'}
+                    </span>
+                    {onOpenEvidence && (
+                      <button
+                        onClick={() => onOpenEvidence(onlineDiaryItem)}
+                        className="px-3 py-1 bg-[#780016] text-[#FFDF80] hover:text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-sm"
+                      >
+                        <ZoomIn className="w-3.5 h-3.5" />
+                        <span>मूल ऑनलाइन पृष्ठ देखें</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
@@ -130,7 +145,7 @@ export const ChandaLedger: React.FC<ChandaLedgerProps> = ({ lang }) => {
 
         {/* CASH CHANDA NOTICE (Shown only on Cash Tab) */}
         {activeTab === 'cash' && (
-          <div className="mb-8 bg-emerald-50 border border-emerald-300 rounded-3xl p-5 sm:p-6 shadow-sm flex items-center justify-between gap-4">
+          <div className="mb-8 bg-emerald-50 border border-emerald-300 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
                 {lang === 'hi' ? 'सत्यापित नकद चंदा सूची' : 'Verified Cash Chanda Ledger'}
@@ -142,10 +157,21 @@ export const ChandaLedger: React.FC<ChandaLedgerProps> = ({ lang }) => {
                 {lang === 'hi' ? '32 सदस्यों द्वारा नकद माध्यम से प्राप्त कुल सहयोग।' : 'Consolidated cash contributions received from 32 members.'}
               </p>
             </div>
-            <div className="text-right shrink-0">
-              <span className="text-2xl sm:text-3xl font-serif font-black text-emerald-800">
-                ₹27,221
-              </span>
+            <div className="flex items-center gap-3">
+              {onOpenEvidence && (
+                <button
+                  onClick={() => onOpenEvidence(cashDiaryItem)}
+                  className="px-3.5 py-1.5 bg-emerald-800 text-white hover:bg-emerald-900 rounded-xl text-xs font-bold flex items-center gap-1 shadow-sm"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                  <span>मूल कैश पृष्ठ देखें</span>
+                </button>
+              )}
+              <div className="text-right shrink-0">
+                <span className="text-2xl sm:text-3xl font-serif font-black text-emerald-800">
+                  ₹27,221
+                </span>
+              </div>
             </div>
           </div>
         )}
