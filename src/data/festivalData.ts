@@ -16,6 +16,69 @@
  * - Final Net Savings: ₹1,821
  */
 
+export interface GrossCollectionBreakdown {
+  grossTotal: number;
+  onlineChandaTotal: number;
+  cashChandaTotal: number;
+  chandaSubtotal: number;
+  bhandaraTotal: number;
+  bhandaraBreakdown: {
+    nameHi: string;
+    nameEn: string;
+    amount: number;
+    modeHi: string;
+    modeEn: string;
+    roleHi: string;
+    roleEn: string;
+  }[];
+}
+
+export const GROSS_COLLECTION_DATA: GrossCollectionBreakdown = {
+  grossTotal: 62640,
+  onlineChandaTotal: 31719,
+  cashChandaTotal: 27221,
+  chandaSubtotal: 58940,
+  bhandaraTotal: 3700,
+  bhandaraBreakdown: [
+    {
+      nameHi: "श्रीमती ज्योति जी",
+      nameEn: "Smt. Jyoti Ji",
+      amount: 600,
+      modeHi: "ऑनलाइन",
+      modeEn: "Online",
+      roleHi: "अतिरिक्त भंडारा ऑनलाइन सहयोग",
+      roleEn: "Additional Online Bhandara Seva",
+    },
+    {
+      nameHi: "श्रीमती सुमन कटियार जी",
+      nameEn: "Smt. Suman Katiyar Ji",
+      amount: 600,
+      modeHi: "ऑनलाइन",
+      modeEn: "Online",
+      roleHi: "अतिरिक्त भंडारा ऑनलाइन सहयोग",
+      roleEn: "Additional Online Bhandara Seva",
+    },
+    {
+      nameHi: "डॉ. आशीष श्रीवास्तव जी",
+      nameEn: "Dr. Ashish Shrivastav Ji",
+      amount: 1000,
+      modeHi: "नकद",
+      modeEn: "Cash",
+      roleHi: "भंडारा नकद समर्पित सहयोग",
+      roleEn: "Dedicated Cash Bhandara Seva",
+    },
+    {
+      nameHi: "संतोष कुशवाहा जी एवं गुड्डू भैया",
+      nameEn: "Santosh Kushwaha Ji & Guddu Bhaiya",
+      amount: 1500,
+      modeHi: "नकद / सामग्री",
+      modeEn: "Cash / Supplies",
+      roleHi: "भंडारा विशेष सहयोग व सामग्री व्यवस्था",
+      roleEn: "Bhandara Special Seva & Material Arrangement",
+    },
+  ],
+};
+
 export interface CentralTreasury {
   totalInflow: number;
   onlineChandaWritten: number;

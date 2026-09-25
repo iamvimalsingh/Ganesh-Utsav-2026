@@ -66,7 +66,7 @@ export const SpecialHonors: React.FC<SpecialHonorsProps> = ({ lang }) => {
               🪔 {lang === 'hi' ? 'मूर्ति स्थापना: गुड्डू राय जी' : 'Murti Seva: Guddu Rai Ji'}
             </span>
             <span className="px-3 py-1.5 rounded-xl bg-white/10 border border-[#D4AF37]/40 text-orange-200 font-medium">
-              🍲 {lang === 'hi' ? 'समर्पित भंडारा सेवा: ₹3,750 (संतोष जी + गुड्डू जी ₹1,500 | डॉ. आशीष ₹1,000 | ज्योति जी ₹600 | सुमन जी ₹600)' : 'Bhandara Seva: ₹3,750'}
+              🍲 {lang === 'hi' ? 'समर्पित भंडारा सेवा: ₹3,700 (संतोष जी + गुड्डू जी ₹1,500 | डॉ. आशीष ₹1,000 | ज्योति जी ₹600 | सुमन जी ₹600)' : 'Bhandara Seva: ₹3,700'}
             </span>
           </div>
         </div>

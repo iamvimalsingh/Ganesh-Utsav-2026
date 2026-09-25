@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, ArrowDown, ShieldCheck, Image as ImageIcon } from 'lucide-react';
 import { FestiveArtwork } from './FestiveArtwork';
-import { CENTRAL_TREASURY_DATA } from '../data/festivalData';
+import { CENTRAL_TREASURY_DATA, GROSS_COLLECTION_DATA } from '../data/festivalData';
 import { devotionalAudio } from '../utils/devotionalAudio';
 
 interface HeroProps {
@@ -259,10 +259,10 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             <div className="bg-[#380009]/80 border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md">
               <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1">
-                {lang === 'hi' ? 'कुल केन्द्रीय आवक' : 'Central Inflow'}
+                {lang === 'hi' ? 'सकल कुल संकलन' : 'Gross Collection'}
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-[#FFDF80]">
-                ₹{CENTRAL_TREASURY_DATA.totalInflow.toLocaleString('en-IN')}
+                ₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}
               </span>
             </div>
 
