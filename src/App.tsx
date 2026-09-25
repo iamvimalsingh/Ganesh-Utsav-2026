@@ -8,6 +8,7 @@ import { OpeningIntro } from './components/OpeningIntro';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Introduction } from './components/Introduction';
+import { DevotionalInteractions } from './components/DevotionalInteractions';
 import { TwoWorldsSection } from './components/TwoWorldsSection';
 import { Timeline } from './components/Timeline';
 import { PhotoGallery } from './components/PhotoGallery';
@@ -31,6 +32,7 @@ export default function App() {
       const sections = [
         'hero',
         'overview',
+        'devotional-experience',
         'timeline',
         'gallery',
         'posters',
@@ -80,47 +82,50 @@ export default function App() {
 
       {/* Main Content Experience */}
       <main className="flex-grow">
-        {/* 1. Hero: Cinematic Real Ganesh Darshan */}
+        {/* 1. Hero: Cinematic Real Ganesh Darshan + Bhakti Touch + Interactive Bell */}
         <Hero lang={lang} />
 
         {/* 2. Festival Introduction: Spirit of Community Seva */}
         <Introduction lang={lang} />
 
-        {/* 3. Two Worlds of the Festival: Interactive Split Comparison */}
+        {/* 3. Devotional Interactions: Pushpa Arpan, 7 Diyas, Mantra Counter, Daily Aarti & Sankalpa */}
+        <DevotionalInteractions lang={lang} />
+
+        {/* 4. Two Worlds of the Festival: Interactive Split Comparison */}
         <TwoWorldsSection lang={lang} onSelectCategory={handleSelectTimelineCategory} />
 
-        {/* 4. Festival Journey: 12-Day Interactive Timeline with Real Photos */}
+        {/* 5. Festival Journey: 12-Day Interactive Timeline with Real Photos */}
         <Timeline lang={lang} />
 
-        {/* 5. Real Photo Memory Gallery: "उत्सव की वास्तविक स्मृतियाँ" */}
+        {/* 6. Real Photo Memory Gallery: "उत्सव की वास्तविक स्मृतियाँ" */}
         <PhotoGallery lang={lang} />
 
-        {/* 6. Program Posters: "कार्यक्रम पोस्टर" */}
+        {/* 7. Program Posters: "कार्यक्रम पोस्टर" */}
         <PostersSection lang={lang} />
 
-        {/* 7. Special Honors: "जो हमने सहयोग दिया" (Dedicated Seva Contributors) */}
+        {/* 8. Special Honors: "जो हमने सहयोग दिया" (Dedicated Seva Contributors) */}
         <SpecialHonors lang={lang} />
 
-        {/* 8. Financial Transparency Dashboard: "जिसका हिसाब रखा" */}
+        {/* 9. Financial Transparency Dashboard: "जिसका हिसाब रखा" */}
         <FinancialDashboard lang={lang} />
 
-        {/* 9. Original Diary Evidence: "और जिसका मूल प्रमाण यहाँ है" ("मूल लेखा साक्ष्य") */}
+        {/* 10. Original Diary Evidence: "और जिसका मूल प्रमाण यहाँ है" ("मूल लेखा साक्ष्य") */}
         <DiaryEvidence lang={lang} />
 
-        {/* 10. Chanda Collection Ledger: Online Chanda (40) & Cash Chanda (32) */}
+        {/* 11. Chanda Collection Ledger: Online Chanda (40) & Cash Chanda (32) */}
         <ChandaLedger lang={lang} />
 
-        {/* 11. Itemized Expense Breakdown */}
+        {/* 12. Itemized Expense Breakdown */}
         <ExpenseBreakdown lang={lang} />
 
-        {/* 12. Festival Memory Counter */}
+        {/* 13. Festival Memory Counter */}
         <MemoryCounter lang={lang} />
 
-        {/* 13. Closing Emotional Festival Memory */}
+        {/* 14. Closing Emotional Festival Memory (Visarjan Closing Experience) */}
         <ClosingMemory lang={lang} />
       </main>
 
-      {/* 14. Required Verification Notice & Footer */}
+      {/* 15. Required Verification Notice & Footer */}
       <NoticeAndFooter lang={lang} />
     </div>
   );

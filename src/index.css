@@ -29,3 +29,77 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #780016;
 }
+
+/* Pure CSS Devotional Animations */
+@keyframes swing-bell {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(18deg); }
+  40% { transform: rotate(-14deg); }
+  60% { transform: rotate(10deg); }
+  80% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-bell-swing {
+  transform-origin: top center;
+  animation: swing-bell 0.8s ease-in-out;
+}
+
+@keyframes diya-flame {
+  0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 6px rgba(255, 119, 34, 0.9)); }
+  50% { transform: scale(1.08, 1.15) translateY(-1px); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.95)); }
+}
+
+.animate-diya-flame {
+  animation: diya-flame 1.8s infinite ease-in-out;
+}
+
+@keyframes golden-float {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  50% { opacity: 0.9; }
+  100% { transform: translateY(-35px) scale(1.1); opacity: 0; }
+}
+
+.animate-golden-float {
+  animation: golden-float 2.4s ease-out forwards;
+}
+
+@keyframes flower-float-up {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  50% { transform: translateY(-40px) rotate(45deg) scale(1.15); opacity: 0.85; }
+  100% { transform: translateY(-70px) rotate(90deg) scale(0.9); opacity: 0; }
+}
+
+.animate-flower-float {
+  animation: flower-float-up 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes bead-tap {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+.animate-bead-tap {
+  animation: bead-tap 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-bell-swing,
+  .animate-diya-flame,
+  .animate-golden-float,
+  .animate-flower-float,
+  .animate-bead-tap {
+    animation: none !important;
+    transform: none !important;
+  }
+}

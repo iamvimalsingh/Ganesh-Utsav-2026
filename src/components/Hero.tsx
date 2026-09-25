@@ -1,13 +1,63 @@
-import React from 'react';
-import { Sparkles, ArrowDown, ShieldCheck, Image as ImageIcon, HeartHandshake, Volume2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Sparkles, ArrowDown, ShieldCheck, Image as ImageIcon, HeartHandshake, Bell } from 'lucide-react';
 import { FestiveArtwork } from './FestiveArtwork';
 import { CENTRAL_TREASURY_DATA } from '../data/festivalData';
+import { devotionalAudio } from '../utils/devotionalAudio';
 
 interface HeroProps {
   lang: 'hi' | 'en';
 }
 
 export const Hero: React.FC<HeroProps> = ({ lang }) => {
+  // Bhakti Touch & Bell states
+  const [isBhaktiTouched, setIsBhaktiTouched] = useState<boolean>(false);
+  const [showBhaktiToast, setShowBhaktiToast] = useState<boolean>(false);
+  const [isBellRinging, setIsBellRinging] = useState<boolean>(false);
+
+  // Shloka Intersection Observer for single smooth reveal
+  const shlokaRef = useRef<HTMLDivElement>(null);
+  const [shlokaVisible, setShlokaVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShlokaVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (shlokaRef.current) {
+      observer.observe(shlokaRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Handle Bhakti Touch
+  const handleBhaktiTouch = () => {
+    setIsBhaktiTouched(true);
+    setShowBhaktiToast(true);
+    devotionalAudio.playBhaktiTone(0.4);
+
+    setTimeout(() => {
+      setShowBhaktiToast(false);
+      setIsBhaktiTouched(false);
+    }, 2800);
+  };
+
+  // Handle Interactive Temple Bell Ringing
+  const handleRingBell = () => {
+    setIsBellRinging(true);
+    devotionalAudio.playBell(0.45);
+
+    setTimeout(() => {
+      setIsBellRinging(false);
+    }, 850);
+  };
+
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -23,20 +73,73 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
       <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
       
       {/* Floating Gold Diya Glow Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-[#FF7722]/20 via-[#D4AF37]/15 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-[#FF7722]/20 via-[#D4AF37]/15 to-transparent rounded-full blur-3xl pointer-events-none transition-all duration-700 ${isBhaktiTouched ? 'scale-125 opacity-40' : 'opacity-25'}`} />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-tl from-[#FF7722]/20 via-[#780016]/30 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+      {/* Floating Golden Particles on Bhakti Touch */}
+      {isBhaktiTouched && (
+        <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center">
+          <div className="relative w-72 h-72">
+            <span className="absolute top-10 left-12 text-amber-300 text-lg animate-golden-float">✨</span>
+            <span className="absolute top-20 right-16 text-yellow-200 text-xl animate-golden-float" style={{ animationDelay: '0.2s' }}>⭐</span>
+            <span className="absolute bottom-16 left-20 text-orange-300 text-sm animate-golden-float" style={{ animationDelay: '0.4s' }}>✨</span>
+            <span className="absolute bottom-24 right-12 text-yellow-300 text-lg animate-golden-float" style={{ animationDelay: '0.6s' }}>🪔</span>
+          </div>
+        </div>
+      )}
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
           {/* Left Column: Text & Festive Badges */}
           <div className="lg:col-span-7 text-center lg:text-left space-y-6">
-            {/* Creative Eyebrow Tag */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#FF7722]/30 via-[#D4AF37]/20 to-[#FF7722]/30 border border-[#D4AF37]/70 text-[#FFDF80] text-xs sm:text-sm font-semibold shadow-inner backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#FF7722] animate-ping" />
-              <span>{lang === 'hi' ? 'एक कॉलोनी • एक परिवार • एक उत्सव' : 'One Colony • One Family • One Festival'}</span>
-              <span className="text-[#D4AF37]">•</span>
-              <span className="font-serif">|| श्री गणेशाय नमः ||</span>
+            
+            {/* Top Row: Creative Eyebrow Tag + Temple Bell & Bhakti Touch Controls */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#FF7722]/30 via-[#D4AF37]/20 to-[#FF7722]/30 border border-[#D4AF37]/70 text-[#FFDF80] text-xs sm:text-sm font-semibold shadow-inner backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-[#FF7722] animate-ping" />
+                <span>{lang === 'hi' ? 'एक कॉलोनी • एक परिवार • एक उत्सव' : 'One Colony • One Family • One Festival'}</span>
+                <span className="text-[#D4AF37]">•</span>
+                <span className="font-serif">|| श्री गणेशाय नमः ||</span>
+              </div>
+
+              {/* Interactive Temple Bell */}
+              <button
+                onClick={handleRingBell}
+                aria-label="मंदिर की घंटी बजाएँ"
+                title={lang === 'hi' ? 'मंदिर की घंटी बजाएँ 🔔' : 'Ring Temple Bell 🔔'}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#5A0010]/80 hover:bg-[#780016] border border-[#D4AF37]/70 text-[#FFDF80] hover:text-white transition-all shadow-md active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D4AF37] ${
+                  isBellRinging ? 'border-amber-300 shadow-amber-400/50' : ''
+                }`}
+              >
+                <Bell className={`w-4 h-4 text-[#D4AF37] ${isBellRinging ? 'animate-bell-swing text-amber-300' : ''}`} />
+                <span className="text-xs font-serif font-bold">
+                  {lang === 'hi' ? 'घंटी बजाएँ' : 'Ring Bell'}
+                </span>
+              </button>
+
+              {/* Bhakti Touch Button */}
+              <button
+                onClick={handleBhaktiTouch}
+                aria-label="भक्ति स्पर्श करें"
+                title={lang === 'hi' ? 'भक्ति स्पर्श करें 🪔' : 'Bhakti Touch 🪔'}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#FF7722]/30 via-[#D4AF37]/30 to-[#FF7722]/30 hover:from-[#FF7722]/50 hover:to-[#D4AF37]/50 border-2 border-[#D4AF37] text-[#FFFDF7] font-bold text-xs transition-all shadow-lg active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300 ${
+                  isBhaktiTouched ? 'scale-105 border-amber-200 bg-[#FF7722]/60' : ''
+                }`}
+              >
+                <span className={`text-sm ${isBhaktiTouched ? 'animate-diya-flame' : ''}`} role="img" aria-label="Diya">🪔</span>
+                <span>{lang === 'hi' ? 'भक्ति स्पर्श करें' : 'Bhakti Touch'}</span>
+              </button>
             </div>
+
+            {/* Bhakti Touch Toast Blessing */}
+            {showBhaktiToast && (
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#D4AF37] via-[#F59E0B] to-[#FF7722] text-[#5A0010] font-serif font-black text-sm sm:text-base rounded-2xl shadow-2xl animate-in fade-in zoom-in-95 duration-300 border border-amber-200">
+                <span>🙏</span>
+                <span>गणपति बप्पा मोरया 🙏</span>
+                <span>✨</span>
+              </div>
+            )}
 
             {/* Main Grand Title */}
             <div>
@@ -49,8 +152,13 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
               </p>
             </div>
 
-            {/* Sacred Shloka Box */}
-            <div className="relative bg-gradient-to-br from-[#380009]/95 via-[#5A0010]/90 to-[#2A0006]/95 border-2 border-[#D4AF37]/60 rounded-3xl p-5 sm:p-6 shadow-2xl backdrop-blur-md max-w-2xl mx-auto lg:mx-0">
+            {/* Sacred Shloka Box with Smooth Reveal */}
+            <div
+              ref={shlokaRef}
+              className={`relative bg-gradient-to-br from-[#380009]/95 via-[#5A0010]/90 to-[#2A0006]/95 border-2 border-[#D4AF37]/60 rounded-3xl p-5 sm:p-6 shadow-2xl backdrop-blur-md max-w-2xl mx-auto lg:mx-0 transition-all duration-1000 ${
+                shlokaVisible ? 'opacity-100 translate-y-0' : 'opacity-80 translate-y-3'
+              }`}
+            >
               <div className="absolute -top-3 left-6 px-3 py-0.5 bg-gradient-to-r from-[#D4AF37] to-[#F59E0B] text-[#5A0010] text-[10px] font-bold uppercase tracking-wider rounded-md shadow">
                 पवित्र मंगल श्लोक
               </div>
@@ -84,10 +192,10 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
               </button>
 
               <button
-                onClick={() => scrollTo('timeline')}
+                onClick={() => scrollTo('devotional-experience')}
                 className="flex items-center gap-1.5 px-4 py-3 text-xs font-semibold text-[#D4AF37] hover:text-white transition-colors"
               >
-                <span>{lang === 'hi' ? '12 दिवसीय कार्यक्रम' : '12-Day Schedule'}</span>
+                <span>{lang === 'hi' ? 'पुष्प अर्पण व दीप' : 'Flower & Diya Seva'}</span>
                 <ArrowDown className="w-3.5 h-3.5" />
               </button>
             </div>
