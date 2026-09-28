@@ -157,7 +157,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                   80 सदस्य
                 </div>
                 <p className="text-xs text-[#FFFDF7]/80 mt-1">
-                  {lang === 'hi' ? '40 ऑनलाइन + 36 नकद + 4 समर्पित भंडारा' : '40 Online + 36 Cash + 4 Bhandara Seva'}
+                  {lang === 'hi' ? '42 ऑनलाइन + 34 नकद + 4 समर्पित भंडारा' : '42 Online + 34 Cash + 4 Bhandara Seva'}
                 </p>
               </div>
             </div>
@@ -188,7 +188,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 font-sans">
                 {lang === 'hi'
-                  ? `ऑनलाइन चंदा (40 सदस्य) + नकद चंदा (36 सदस्य) + समर्पित भंडारा सहयोग की पाई-पाई का पारदर्शी समीकरण`
+                  ? `ऑनलाइन चंदा (42 सदस्य) + नकद चंदा (34 सदस्य) + समर्पित भंडारा सहयोग की पाई-पाई का पारदर्शी समीकरण`
                   : 'Transparent calculation combining Online records, Cash records, and dedicated Bhandara seva.'}
               </p>
             </div>
@@ -200,12 +200,12 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
               </div>
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-center font-mono text-sm sm:text-base font-bold">
                 <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20">
-                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">ऑनलाइन (40)</span>
+                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">ऑनलाइन (42)</span>
                   <span className="text-white text-base sm:text-lg">₹{GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')}</span>
                 </div>
                 <Plus className="w-4 h-4 text-[#D4AF37]" />
                 <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20">
-                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">नकद (36)</span>
+                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">नकद (34)</span>
                   <span className="text-white text-base sm:text-lg">₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}</span>
                 </div>
                 <Equal className="w-4 h-4 text-[#D4AF37]" />

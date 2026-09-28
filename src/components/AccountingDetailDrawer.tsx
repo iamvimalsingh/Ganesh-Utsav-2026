@@ -134,7 +134,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-serif font-black text-white mt-0.5">
-                {lang === 'hi' ? '₹62,640 का पूरा विवरण' : '₹62,640 Grand Total Audit'}
+                {lang === 'hi' ? `₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} का पूरा विवरण` : `₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} Grand Total Audit`}
               </h2>
             </div>
           </div>
@@ -159,7 +159,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
             }`}
           >
             <Layers className="w-3.5 h-3.5 text-[#FFDF80]" />
-            <span>{lang === 'hi' ? 'सकल विवरण (₹62,640)' : 'Overview (₹62,640)'}</span>
+            <span>{lang === 'hi' ? `सकल संकलन (₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')})` : `Overview (₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')})`}</span>
           </button>
 
           <button
@@ -171,7 +171,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
             }`}
           >
             <Smartphone className="w-3.5 h-3.5 text-blue-500" />
-            <span>{lang === 'hi' ? 'ऑनलाइन चंदा (₹31,719)' : 'Online (₹31,719)'}</span>
+            <span>{lang === 'hi' ? `ऑनलाइन चंदा (₹${GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')})` : `Online (₹${GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')})`}</span>
           </button>
 
           <button
@@ -183,7 +183,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
             }`}
           >
             <Banknote className="w-3.5 h-3.5 text-emerald-600" />
-            <span>{lang === 'hi' ? 'कैश चंदा (₹27,221)' : 'Cash (₹27,221)'}</span>
+            <span>{lang === 'hi' ? `नकद चंदा (₹${GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')})` : `Cash (₹${GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')})`}</span>
           </button>
 
           <button
@@ -195,19 +195,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
             }`}
           >
             <Utensils className="w-3.5 h-3.5 text-[#FF7722]" />
-            <span>{lang === 'hi' ? 'भंडारा सहयोग (₹3,700)' : 'Bhandara (₹3,700)'}</span>
-          </button>
-
-          <button
-            onClick={() => setCurrentTab('central')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-              currentTab === 'central'
-                ? 'bg-[#780016] text-white shadow-sm'
-                : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
-            }`}
-          >
-            <Wallet className="w-3.5 h-3.5 text-amber-600" />
-            <span>{lang === 'hi' ? 'केंद्रीय खाता (₹40,024)' : 'Central Account'}</span>
+            <span>{lang === 'hi' ? `भंडारा सहयोग (₹${GROSS_COLLECTION_DATA.bhandaraTotal.toLocaleString('en-IN')})` : `Bhandara (₹${GROSS_COLLECTION_DATA.bhandaraTotal.toLocaleString('en-IN')})`}</span>
           </button>
 
           <button
@@ -219,7 +207,19 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
             }`}
           >
             <Receipt className="w-3.5 h-3.5 text-rose-600" />
-            <span>{lang === 'hi' ? 'केंद्रीय व्यय (₹34,903)' : 'Expenses'}</span>
+            <span>{lang === 'hi' ? `सकल व्यय (₹${CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')})` : `Expenses (₹${CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')})`}</span>
+          </button>
+
+          <button
+            onClick={() => setCurrentTab('central')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+              currentTab === 'central'
+                ? 'bg-[#780016] text-white shadow-sm'
+                : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+            }`}
+          >
+            <Wallet className="w-3.5 h-3.5 text-amber-600" />
+            <span>{lang === 'hi' ? `शुद्ध बचत (₹${CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')})` : `Surplus (₹${CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')})`}</span>
           </button>
         </div>
 
@@ -310,7 +310,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                         <Smartphone className="w-5 h-5" />
                       </span>
                       <span className="text-[11px] font-bold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200">
-                        40 सदस्य
+                        {ONLINE_DONORS_40.length} सदस्य
                       </span>
                     </div>
                     <span className="text-xs text-stone-500 font-semibold block">1. ऑनलाइन चंदा</span>
@@ -318,7 +318,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                       ₹{GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')}
                     </div>
                     <p className="text-xs text-stone-600 mt-2">
-                      40 ऑनलाइन दानदाताओं की सत्यापित सूची व हस्तलिखित डायरी पृष्ठ।
+                      {ONLINE_DONORS_40.length} ऑनलाइन दानदाताओं की सत्यापित सूची व हस्तलिखित डायरी पृष्ठ।
                     </p>
                   </div>
                   <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs font-bold text-blue-700 group-hover:text-blue-900">
@@ -411,7 +411,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
           )}
 
           {/* ============================================================ */}
-          {/* TAB 2: ONLINE CHANDA — 40 Records & ₹950 Discrepancy Banner */}
+          {/* TAB 2: ONLINE CHANDA — Verified Records & Audit Banner */}
           {/* ============================================================ */}
           {currentTab === 'online' && (
             <div className="space-y-6 animate-fade-in">
@@ -422,10 +422,10 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                     <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 text-[11px] font-bold border border-blue-200">
                       ऑनलाइन संकलन
                     </span>
-                    <span className="text-xs text-stone-500 font-bold">40 सदस्य</span>
+                    <span className="text-xs text-stone-500 font-bold">{ONLINE_DONORS_40.length} सदस्य</span>
                   </div>
                   <h3 className="text-2xl font-serif font-black text-[#780016] mt-1">
-                    ऑनलाइन चंदा — 40 सदस्य
+                    ऑनलाइन चंदा — {ONLINE_DONORS_40.length} सदस्य
                   </h3>
                 </div>
 
@@ -506,14 +506,14 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                     onChange={(e) => setOnlineSort(e.target.value as any)}
                     className="bg-white border border-stone-300 rounded-xl px-2.5 py-1 text-xs font-semibold focus:outline-none"
                   >
-                    <option value="sNo">क्रमानुसार (1-40)</option>
+                    <option value="sNo">क्रमानुसार (1-{ONLINE_DONORS_40.length})</option>
                     <option value="amountDesc">राशि: अधिक से कम</option>
                     <option value="amountAsc">राशि: कम से अधिक</option>
                   </select>
                 </div>
               </div>
 
-              {/* Itemized 40 Donor Table */}
+              {/* Itemized Online Donor Table */}
               <div className="overflow-x-auto rounded-2xl border border-stone-200 shadow-sm bg-white">
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
@@ -542,9 +542,9 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                       </tr>
                     ))}
                     <tr className="bg-emerald-50/90 font-bold border-t-2 border-emerald-400 text-emerald-950">
-                      <td colSpan={3} className="py-3 px-3">40 ऑनलाइन रिकॉर्ड्स का सत्यापित कुल योग:</td>
+                      <td colSpan={3} className="py-3 px-3">{ONLINE_DONORS_40.length} ऑनलाइन रिकॉर्ड्स का कुल योग:</td>
                       <td className="py-3 px-3 text-right font-serif font-black text-emerald-900 text-base">
-                        ₹{ONLINE_AUDIT_INFO.verifiedDonorTotal.toLocaleString('en-IN')}
+                        ₹{GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')}
                       </td>
                     </tr>
                   </tbody>
