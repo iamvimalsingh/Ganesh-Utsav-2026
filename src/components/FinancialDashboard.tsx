@@ -1,5 +1,5 @@
 import React from 'react';
-import { CENTRAL_TREASURY_DATA, ONLINE_AUDIT_INFO, GROSS_COLLECTION_DATA, DiaryEvidenceItem } from '../data/festivalData';
+import { CENTRAL_TREASURY_DATA, ONLINE_AUDIT_INFO, GROSS_COLLECTION_DATA, CONSOLIDATED_FESTIVAL_AUDIT, DiaryEvidenceItem } from '../data/festivalData';
 import { ShieldCheck, TrendingUp, TrendingDown, Wallet, ArrowRight, Minus, Plus, Equal, CheckCircle, ShieldAlert, Sparkles, Smartphone, Banknote, Utensils, HelpCircle } from 'lucide-react';
 import { DrilldownTab } from './AccountingDetailDrawer';
 
@@ -50,7 +50,9 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                   ₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}
                 </div>
                 <p className="text-xs text-emerald-800 font-medium mt-1">
-                  {lang === 'hi' ? 'ऑनलाइन ₹31,719 + नकद ₹27,221 + भंडारा ₹3,700' : 'Online ₹31,719 + Cash ₹27,221 + Bhandara ₹3,700'}
+                  {lang === 'hi'
+                    ? `ऑनलाइन ₹${GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')} + नकद ₹${GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')} + भंडारा ₹${GROSS_COLLECTION_DATA.bhandaraTotal.toLocaleString('en-IN')}`
+                    : `Online ₹${GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')} + Cash ₹${GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')} + Bhandara ₹${GROSS_COLLECTION_DATA.bhandaraTotal.toLocaleString('en-IN')}`}
                 </p>
               </div>
             </div>
@@ -63,12 +65,12 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                 }}
                 className="inline-flex items-center gap-1 text-xs font-bold text-emerald-900 hover:text-emerald-700 transition-colors"
               >
-                <span>{lang === 'hi' ? '₹62,640 का पूरा गणित व स्रोत देखें →' : 'View ₹62,640 Math & Evidence →'}</span>
+                <span>{lang === 'hi' ? `₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} का पूरा गणित व स्रोत देखें →` : `View ₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} Math & Evidence →`}</span>
               </button>
             </div>
           </div>
 
-          {/* Card 2: Total Outflow */}
+          {/* Card 2: Total Certified Outflow */}
           <div
             onClick={() => onOpenAccounting && onOpenAccounting('expenses')}
             className="bg-white rounded-3xl border-2 border-rose-400/40 hover:border-rose-500 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between cursor-pointer group"
@@ -79,15 +81,15 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                   <TrendingDown className="w-6 h-6" />
                 </span>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-rose-800 bg-rose-50 px-2.5 py-1 rounded-lg border border-rose-200">
-                  {lang === 'hi' ? 'कुल व्यय' : 'Total Outflow'}
+                  {lang === 'hi' ? 'कुल उत्सव व्यय' : 'Total Festival Outflow'}
                 </span>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl font-serif font-black text-rose-950 group-hover:text-rose-700 transition-colors">
-                  ₹{CENTRAL_TREASURY_DATA.totalOutflow.toLocaleString('en-IN')}
+                  ₹{CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')}
                 </div>
                 <p className="text-xs text-stone-500 mt-1">
-                  {lang === 'hi' ? 'दैनिक पूजन + टेंट, साउंड, लाइट व विक्रेता' : 'Daily Rituals + Tent, Sound & Vendors'}
+                  {lang === 'hi' ? 'टेंट, साउंड, भंडारा महाप्रसाद, पूजन व विसर्जन' : 'Pandal, Sound, Bhandara Feast, Rituals & Visarjan'}
                 </p>
               </div>
             </div>
@@ -100,49 +102,45 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                 }}
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#780016] hover:text-[#FF7722] transition-colors"
               >
-                <span>{lang === 'hi' ? 'खर्च का विवरण व वाउचर देखें →' : 'View Expense Breakdown & Vouchers →'}</span>
+                <span>{lang === 'hi' ? '3 श्रेणियों में विस्तृत व्यय देखें →' : 'View 3 Itemized Categories →'}</span>
               </button>
             </div>
           </div>
 
-          {/* Card 3: Preliminary Hand Balance */}
+          {/* Card 3: Total Net Surplus */}
           <div
-            onClick={() => onOpenAccounting && onOpenAccounting('central')}
-            className="bg-white rounded-3xl border-2 border-amber-400/40 hover:border-amber-500 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between cursor-pointer group"
+            onClick={() => {
+              const el = document.getElementById('gross-breakdown');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="bg-white rounded-3xl border-2 border-emerald-400/40 hover:border-emerald-500 p-6 shadow-md hover:shadow-xl transition-all flex flex-col justify-between cursor-pointer group"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="w-11 h-11 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+                <span className="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
                   <Wallet className="w-6 h-6" />
                 </span>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
-                  {lang === 'hi' ? 'प्रारंभिक शेष' : 'Hand Balance'}
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                  {lang === 'hi' ? 'कुल बची अधिशेष राशि' : 'Total Available Surplus'}
                 </span>
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-serif font-black text-amber-950 group-hover:text-amber-700 transition-colors">
-                  ₹{CENTRAL_TREASURY_DATA.preliminaryHandBalance.toLocaleString('en-IN')}
+                <div className="text-3xl sm:text-4xl font-serif font-black text-emerald-900 group-hover:text-emerald-700 transition-colors">
+                  ₹{CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')}
                 </div>
                 <p className="text-xs text-stone-500 mt-1">
-                  {lang === 'hi' ? 'केन्द्रीय आवक (₹40,024) − व्यय (₹34,903)' : 'Central Inflow minus Outflow'}
+                  {lang === 'hi' ? `सकल संकलन (₹${CONSOLIDATED_FESTIVAL_AUDIT.grossCollection.toLocaleString('en-IN')}) − कुल व्यय (₹${CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')})` : `Gross Inflow minus Certified Outflow`}
                 </p>
               </div>
             </div>
-            <div className="mt-4 pt-3 border-t border-amber-100">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (onOpenAccounting) onOpenAccounting('central');
-                }}
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#780016] hover:text-[#FF7722] transition-colors"
-              >
-                <span>{lang === 'hi' ? 'केंद्रीय खाता विवरण देखें →' : 'View Central Account →'}</span>
-              </button>
+            <div className="mt-4 pt-3 border-t border-emerald-100">
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-800 hover:text-emerald-600 transition-colors">
+                <span>{lang === 'hi' ? 'अधिशेष राशि का विभाजन देखें ↓' : 'View Surplus Breakdown ↓'}</span>
+              </span>
             </div>
           </div>
 
-          {/* Card 4: Final Net Savings */}
+          {/* Card 4: Total Community Contributors */}
           <div className="bg-gradient-to-br from-[#780016] to-[#45000A] text-[#FFFDF7] rounded-3xl border-2 border-[#D4AF37] p-6 shadow-xl flex flex-col justify-between relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-24 bg-[#FF7722]/20 rounded-full blur-xl pointer-events-none" />
             <div>
@@ -151,31 +149,31 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                   <CheckCircle className="w-6 h-6" />
                 </span>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#FFDF80] bg-white/10 px-3 py-1 rounded-lg border border-[#D4AF37]/40">
-                  {lang === 'hi' ? 'अंतिम शुद्ध बचत' : 'Final Net Savings'}
+                  {lang === 'hi' ? 'कुल सहयोगी परिवार' : 'Total Contributors'}
                 </span>
               </div>
               <div className="relative z-10">
                 <div className="text-3xl sm:text-4xl font-serif font-black text-emerald-400">
-                  ₹{CENTRAL_TREASURY_DATA.finalNetSavings.toLocaleString('en-IN')}
+                  80 सदस्य
                 </div>
                 <p className="text-xs text-[#FFFDF7]/80 mt-1">
-                  {lang === 'hi' ? 'टेंट शेष (-₹3,000) व सफाई (-₹300) उपरांत' : 'After pending tent & cleaning clearance'}
+                  {lang === 'hi' ? '40 ऑनलाइन + 36 नकद + 4 समर्पित भंडारा' : '40 Online + 36 Cash + 4 Bhandara Seva'}
                 </p>
               </div>
             </div>
             <div className="mt-4 pt-3 border-t border-[#D4AF37]/30 relative z-10">
               <a
-                href="#evidence"
+                href="#donors"
                 className="inline-flex items-center gap-1 text-xs font-bold text-[#FFDF80] hover:text-white transition-colors"
               >
-                <span>{lang === 'hi' ? 'मूल लेखा देखें' : 'View Source Evidence'}</span>
+                <span>{lang === 'hi' ? 'पूरी दानदाता सूची देखें' : 'View Full Donors List'}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
         </div>
 
-        {/* SECTION: DETAILED GRAND BREAKDOWN OF ₹62,640 TOTAL FESTIVAL COLLECTION */}
+        {/* SECTION: DETAILED GRAND BREAKDOWN OF FESTIVAL COLLECTION */}
         <div id="gross-breakdown" className="mb-14 bg-white rounded-3xl border-2 border-[#D4AF37] p-6 sm:p-8 shadow-xl relative overflow-hidden">
           <div className="max-w-4xl mx-auto space-y-6">
             
@@ -186,12 +184,12 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                 <span>{lang === 'hi' ? 'सकल कुल संकलन का प्रामाणिक गणित' : 'Verified Gross Collection Math'}</span>
               </span>
               <h3 className="text-2xl sm:text-4xl font-serif font-black text-[#780016]">
-                {lang === 'hi' ? 'कुल संकलन ₹62,640 कैसे बना? (विस्तृत विवरण)' : 'How Total Collection ₹62,640 Was Formed'}
+                {lang === 'hi' ? `कुल संकलन ₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} कैसे बना? (विस्तृत विवरण)` : `How Total Collection ₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} Was Formed`}
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 font-sans">
                 {lang === 'hi'
-                  ? 'ऑनलाइन चंदा (40 सदस्य) + नकद चंदा (32 सदस्य) + समर्पित भंडारा सहयोग की पाई-पाई का पारदर्शी समीकरण'
-                  : 'Transparent calculation combining 40 Online records, 32 Cash records, and dedicated Bhandara seva.'}
+                  ? `ऑनलाइन चंदा (40 सदस्य) + नकद चंदा (36 सदस्य) + समर्पित भंडारा सहयोग की पाई-पाई का पारदर्शी समीकरण`
+                  : 'Transparent calculation combining Online records, Cash records, and dedicated Bhandara seva.'}
               </p>
             </div>
 
@@ -203,27 +201,27 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-center font-mono text-sm sm:text-base font-bold">
                 <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20">
                   <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">ऑनलाइन (40)</span>
-                  <span className="text-white text-base sm:text-lg">₹31,719</span>
+                  <span className="text-white text-base sm:text-lg">₹{GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')}</span>
                 </div>
                 <Plus className="w-4 h-4 text-[#D4AF37]" />
                 <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20">
-                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">नकद (32)</span>
-                  <span className="text-white text-base sm:text-lg">₹27,221</span>
+                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">नकद (36)</span>
+                  <span className="text-white text-base sm:text-lg">₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}</span>
                 </div>
                 <Equal className="w-4 h-4 text-[#D4AF37]" />
                 <div className="bg-amber-400/20 px-3.5 py-2 rounded-xl border border-amber-300/40">
                   <span className="block text-[10px] text-amber-200 font-sans font-normal">चंदा उप-योग</span>
-                  <span className="text-[#FFDF80] text-base sm:text-lg">₹58,940</span>
+                  <span className="text-[#FFDF80] text-base sm:text-lg">₹{GROSS_COLLECTION_DATA.chandaSubtotal.toLocaleString('en-IN')}</span>
                 </div>
                 <Plus className="w-4 h-4 text-[#D4AF37]" />
                 <div className="bg-emerald-500/20 px-3.5 py-2 rounded-xl border border-emerald-400/40">
                   <span className="block text-[10px] text-emerald-200 font-sans font-normal">भंडारा सहयोग</span>
-                  <span className="text-emerald-300 text-base sm:text-lg">₹3,700</span>
+                  <span className="text-emerald-300 text-base sm:text-lg">₹{GROSS_COLLECTION_DATA.bhandaraTotal.toLocaleString('en-IN')}</span>
                 </div>
                 <Equal className="w-4 h-4 text-[#D4AF37]" />
                 <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-4 py-2 rounded-xl border-2 border-emerald-300 shadow-lg">
                   <span className="block text-[10px] text-white/90 font-sans font-bold">सकल कुल संकलन</span>
-                  <span className="text-white text-lg sm:text-2xl font-serif font-black">₹62,640</span>
+                  <span className="text-white text-lg sm:text-2xl font-serif font-black">₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}</span>
                 </div>
               </div>
             </div>
@@ -380,147 +378,97 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
               </div>
             </div>
 
-            {/* Reconciliation Note between Gross Collection and Central Cash Registry */}
+            {/* Grand Total Master Collection vs Expenditure and Remaining Surplus (₹14,522) */}
+            <div className="mt-8 bg-gradient-to-br from-emerald-950 via-[#1E293B] to-stone-900 text-white rounded-3xl p-6 sm:p-8 border-2 border-[#D4AF37] shadow-2xl space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/20 pb-4">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#FFDF80] bg-white/10 px-3 py-1 rounded-full border border-white/20">
+                    {lang === 'hi' ? 'समेकित अंतिम संतुलन' : 'Consolidated Balance Sheet'}
+                  </span>
+                  <h4 className="text-xl sm:text-3xl font-serif font-black text-white mt-1.5">
+                    {lang === 'hi' ? 'कुल संकलन बनाम कुल खर्च एवं बची हुई राशि' : 'Total Collection vs Expenses & Remaining Surplus'}
+                  </h4>
+                </div>
+                <div className="bg-emerald-500/20 border border-emerald-400/40 px-4 py-2 rounded-2xl text-right shrink-0">
+                  <span className="text-[11px] text-emerald-200 block font-sans">खर्च के बाहर उपलब्ध अधिशेष:</span>
+                  <span className="text-2xl sm:text-3xl font-serif font-black text-emerald-300">₹{CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+
+              {/* 3 Main Summary Columns */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="bg-white/10 rounded-2xl p-4 border border-white/15">
+                  <span className="text-xs text-[#FFDF80] block font-sans font-semibold">१. कुल सकल संकलन:</span>
+                  <div className="text-2xl sm:text-3xl font-serif font-black text-white mt-1">
+                    ₹{CONSOLIDATED_FESTIVAL_AUDIT.grossCollection.toLocaleString('en-IN')}
+                  </div>
+                  <p className="text-[11px] text-stone-300 mt-1.5 leading-relaxed">
+                    42 ऑनलाइन (₹33,919) + 34 नकद (₹27,032) + 4 भंडारा (₹3,700)
+                  </p>
+                </div>
+
+                <div className="bg-rose-500/15 rounded-2xl p-4 border border-rose-400/30">
+                  <span className="text-xs text-rose-200 block font-sans font-semibold">२. कुल प्रमाणित प्रत्यक्ष व्यय:</span>
+                  <div className="text-2xl sm:text-3xl font-serif font-black text-rose-300 mt-1">
+                    ₹{CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')}
+                  </div>
+                  <p className="text-[11px] text-stone-300 mt-1.5 leading-relaxed">
+                    पंडाल/साउंड (₹30,452) + भंडारा राशन (₹14,542) + पूजन/विसर्जन (₹15,135)
+                  </p>
+                </div>
+
+                <div className="bg-emerald-500/20 rounded-2xl p-4 border-2 border-emerald-400/50 shadow-inner">
+                  <span className="text-xs text-emerald-200 block font-sans font-semibold">३. खर्चे के बाहर कुल बची राशि:</span>
+                  <div className="text-2xl sm:text-3xl font-serif font-black text-emerald-300 mt-1">
+                    ₹{CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')}
+                  </div>
+                  <p className="text-[11px] text-emerald-100/90 mt-1.5 leading-relaxed font-semibold">
+                    सकल संकलन (₹64,651) − कुल वास्तविक खर्च (₹60,129)
+                  </p>
+                </div>
+              </div>
+
+              {/* Exact Transparent Breakdown of Where the ₹4,522 is Located */}
+              <div className="bg-black/30 rounded-2xl p-4 sm:p-5 border border-white/10 space-y-3 font-sans text-xs sm:text-sm">
+                <span className="font-bold text-[#FFDF80] block text-xs uppercase tracking-wider">
+                  {lang === 'hi' ? '📌 बची हुई शुद्ध बचत ₹4,522 का स्पष्ट विवरण:' : '📌 Breakdown of Available Surplus (₹4,522):'}
+                </span>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-stone-200 text-xs">
+                  <div className="bg-white/5 p-3 rounded-xl border border-white/10 flex justify-between items-center">
+                    <span>• संग्रहकर्ता सदस्यों के पास सुरक्षित नकद चंदा:</span>
+                    <strong className="text-white font-mono text-sm">₹{CONSOLIDATED_FESTIVAL_AUDIT.surplusBreakdown.cashWithOtherCollectors.toLocaleString('en-IN')}</strong>
+                  </div>
+
+                  <div className="bg-white/5 p-3 rounded-xl border border-white/10 flex justify-between items-center">
+                    <span>• समर्पित भंडारा नकद सहयोग:</span>
+                    <strong className="text-white font-mono text-sm">₹{CONSOLIDATED_FESTIVAL_AUDIT.surplusBreakdown.bhandaraCashHeld.toLocaleString('en-IN')}</strong>
+                  </div>
+
+                  <div className="bg-white/5 p-3 rounded-xl border border-white/10 flex justify-between items-center">
+                    <span>• ऑनलाइन दानदाताओं का अंतर:</span>
+                    <strong className="text-emerald-300 font-mono text-sm">+₹{CONSOLIDATED_FESTIVAL_AUDIT.surplusBreakdown.onlineAuditDifference.toLocaleString('en-IN')}</strong>
+                  </div>
+
+                  <div className="bg-white/5 p-3 rounded-xl border border-white/10 flex justify-between items-center">
+                    <span>• केंद्रीय शेष बनाम बकाया प्रतिपूर्ति समायोजन:</span>
+                    <strong className="text-amber-300 font-mono text-sm">-₹128</strong>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-white/10 flex justify-between items-center text-xs text-stone-400">
+                  <span>* मूल हस्तलिखित वाउचर व पंजिका के आधार पर सत्यापित।</span>
+                  <span className="font-bold text-emerald-400">कुल शुद्ध बचत = ₹4,522</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Reconciliation Note */}
             <div className="bg-stone-100/90 rounded-2xl p-4 border border-stone-300 flex items-start gap-3 text-xs text-stone-700 leading-relaxed">
               <ShieldCheck className="w-4 h-4 text-[#780016] shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-stone-900 block mb-0.5">लेखा शुचिता व केन्द्रीय रजिस्ट्री का संबंध:</span>
-                पूरे उत्सव का कुल संकलन **₹62,640** (ऑनलाइन ₹31,719 + नकद ₹27,221 + भंडारा ₹3,700) है। इनमें से केन्द्रीय खर्चों व वेंडरों के भुगतान हेतु **₹40,024** की सीधी आवक प्रयुक्त हुई जिसमें से **₹34,903** कुल व्यय होने के पश्चात **₹5,121** प्रारंभिक शेष और अंत में टेंट व सफाई उपरांत **₹1,821** की अंतिम शुद्ध बचत कॉलोनी के पास सुरक्षित रही।
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION: "एक ईमानदार नोट" — SIGNATURE TRANSPARENCY CARD */}
-        <div className="mb-14 bg-gradient-to-r from-amber-50 via-[#FFF9EE] to-amber-50 border-2 border-amber-300 rounded-3xl p-6 sm:p-8 shadow-lg">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#780016] text-[#FFDF80] flex items-center justify-center shrink-0 shadow-md">
-              <ShieldAlert className="w-6 h-6" />
-            </div>
-            <div className="space-y-4 w-full">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200/80 pb-3">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-amber-900 bg-amber-200/70 px-3 py-0.5 rounded-md">
-                    {lang === 'hi' ? 'हस्ताक्षरित शुचिता एवं पारदर्शी नोट' : 'Signature Audit Transparency'}
-                  </span>
-                  <h3 className="text-2xl font-serif font-bold text-[#780016] mt-1">
-                    {lang === 'hi' ? 'एक ईमानदार नोट (लेखा सत्यापन)' : 'An Honest Note (Audit Reconciliation)'}
-                  </h3>
-                </div>
-                <div className="text-xs font-semibold text-[#780016] bg-white px-3 py-1.5 rounded-xl border border-amber-300 shadow-sm">
-                  {lang === 'hi' ? 'अभिलेख सुरक्षित' : 'Source Protected'}
-                </div>
-              </div>
-
-              {/* 3 Metric Comparison Blocks */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-white p-4 rounded-2xl border border-stone-200 shadow-sm">
-                  <span className="text-xs text-stone-500 font-medium block mb-1">
-                    {lang === 'hi' ? 'डायरी में लिखा:' : 'Diary Written:'}
-                  </span>
-                  <div className="text-2xl font-serif font-bold text-[#780016]">
-                    ₹{ONLINE_AUDIT_INFO.diaryWrittenTotal.toLocaleString('en-IN')}
-                  </div>
-                  <span className="text-[11px] text-stone-500 mt-1 block">
-                    {lang === 'hi' ? 'केन्द्रीय आवक में प्रयुक्त मूल आंकड़ा' : 'Recorded in central inflow'}
-                  </span>
-                </div>
-
-                <div className="bg-white p-4 rounded-2xl border border-emerald-300 shadow-sm">
-                  <span className="text-xs text-emerald-800 font-medium block mb-1">
-                    {lang === 'hi' ? '40 व्यक्तिगत रिकॉर्ड का योग:' : '40-Record Sum:'}
-                  </span>
-                  <div className="text-2xl font-serif font-bold text-emerald-700">
-                    ₹{ONLINE_AUDIT_INFO.verifiedDonorTotal.toLocaleString('en-IN')}
-                  </div>
-                  <span className="text-[11px] text-emerald-600 mt-1 block">
-                    {lang === 'hi' ? '40 दानदाताओं की राशियों का योग' : 'Sum of 40 individual entries'}
-                  </span>
-                </div>
-
-                <div className="bg-white p-4 rounded-2xl border border-amber-400 shadow-sm">
-                  <span className="text-xs text-amber-900 font-medium block mb-1">
-                    {lang === 'hi' ? 'अंतर:' : 'Difference:'}
-                  </span>
-                  <div className="text-2xl font-serif font-bold text-amber-700">
-                    +₹{ONLINE_AUDIT_INFO.difference.toLocaleString('en-IN')}
-                  </div>
-                  <span className="text-[11px] text-stone-500 mt-1 block">
-                    {lang === 'hi' ? 'सत्यापित योग > लिखित योग' : 'Verified exceeds written sum'}
-                  </span>
-                </div>
-              </div>
-
-              <div className="bg-white p-4 rounded-2xl border border-amber-300 text-xs sm:text-sm text-stone-800 leading-relaxed font-sans shadow-inner">
-                <span className="font-bold text-[#780016] block mb-1 text-sm">
-                  "दोनों आंकड़े स्रोत के अनुसार सुरक्षित रखे गए हैं।"
-                </span>
-                {lang === 'hi' ? ONLINE_AUDIT_INFO.explanationHi : ONLINE_AUDIT_INFO.explanationEn}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Visual Waterfall Flow Box */}
-        <div className="bg-[#780016] text-[#FFFDF7] rounded-3xl border-2 border-[#D4AF37] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-          <div className="max-w-4xl mx-auto space-y-6">
-            <div className="text-center">
-              <span className="text-xs font-bold text-[#FFDF80] uppercase tracking-wider bg-white/10 px-3.5 py-1 rounded-full border border-[#D4AF37]/30">
-                {lang === 'hi' ? 'प्रवाह आरेख' : 'Visual Inflow-Outflow Waterfall'}
-              </span>
-              <h3 className="text-2xl sm:text-4xl font-serif font-bold text-white mt-2">
-                {lang === 'hi' ? 'सटीक गणितीय लेखा प्रवाह' : 'Complete Mathematical Audit Sequence'}
-              </h3>
-            </div>
-
-            {/* Stage 1 */}
-            <div className="bg-[#5A0010] p-5 rounded-2xl border border-[#D4AF37]/40 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-              <div className="flex items-center gap-2">
-                <span className="px-3 py-1 bg-[#D4AF37] text-[#5A0010] font-bold text-xs rounded-md">
-                  चरण १
-                </span>
-                <span className="text-xs sm:text-sm text-[#FFDF80] font-medium">
-                  {lang === 'hi' ? 'प्रारंभिक शेष (केन्द्रीय आवक − व्यय)' : 'Preliminary Hand Balance'}
-                </span>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base font-bold font-mono">
-                <span className="text-emerald-400">₹40,024 (केन्द्रीय आवक)</span>
-                <Minus className="w-4 h-4 text-stone-300" />
-                <span className="text-rose-300">₹34,903 (व्यय)</span>
-                <Equal className="w-4 h-4 text-[#D4AF37]" />
-                <span className="text-[#FFDF80] text-lg font-serif font-black bg-white/10 px-3 py-1 rounded-lg border border-[#D4AF37]">
-                  ₹5,121
-                </span>
-              </div>
-            </div>
-
-            {/* Stage 2 */}
-            <div className="bg-[#45000A] p-5 rounded-2xl border-2 border-emerald-500/70 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left shadow-xl">
-              <div className="flex items-center gap-2">
-                <span className="px-3 py-1 bg-emerald-500 text-white font-bold text-xs rounded-md">
-                  चरण २
-                </span>
-                <div>
-                  <span className="text-xs sm:text-sm font-bold text-emerald-300 block">
-                    {lang === 'hi' ? 'अंतिम शुद्ध बचत (Colony Net Reserve)' : 'Final Unencumbered Surplus'}
-                  </span>
-                  <span className="text-[11px] text-[#FFFDF7]/70">
-                    {lang === 'hi' ? 'टेंट शेष (-₹3,000) व दुर्गा सफाई (-₹300) समायोजन' : 'After -₹3,000 tent & -₹300 cleaning adjustment'}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base font-bold font-mono">
-                <span className="text-white">₹5,121</span>
-                <Minus className="w-4 h-4 text-stone-300" />
-                <span className="text-amber-300">₹3,000 (टेंट शेष)</span>
-                <Minus className="w-4 h-4 text-stone-300" />
-                <span className="text-amber-300">₹300 (सफाई)</span>
-                <Equal className="w-4 h-4 text-emerald-400" />
-                <span className="text-emerald-300 text-xl sm:text-2xl font-serif font-black bg-emerald-950/90 px-4 py-1.5 rounded-xl border-2 border-emerald-400 shadow">
-                  ₹1,821
-                </span>
+                <span className="font-bold text-stone-900 block mb-0.5">लेखा पारदर्शिता:</span>
+                पूरे उत्सव का कुल संकलन **₹64,651** (42 ऑनलाइन ₹33,919 + 34 नकद ₹27,032 + 4 भंडारा ₹3,700) है। कुल प्रमाणित प्रत्यक्ष खर्च **₹60,129** (शशि जी खाता ₹38,974 + श्रीवास्तव अंकल पंजिका ₹21,155) होने के उपरांत **₹4,522** की कुल शुद्ध बचत सुरक्षित है।
               </div>
             </div>
           </div>

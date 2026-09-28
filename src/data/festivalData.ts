@@ -34,10 +34,10 @@ export interface GrossCollectionBreakdown {
 }
 
 export const GROSS_COLLECTION_DATA: GrossCollectionBreakdown = {
-  grossTotal: 62640,
-  onlineChandaTotal: 31719,
-  cashChandaTotal: 27221,
-  chandaSubtotal: 58940,
+  grossTotal: 64651,
+  onlineChandaTotal: 33919,
+  cashChandaTotal: 27032,
+  chandaSubtotal: 60951,
   bhandaraTotal: 3700,
   bhandaraBreakdown: [
     {
@@ -89,7 +89,13 @@ export interface CentralTreasury {
   tentSoundLightVendors: number;
   preliminaryHandBalance: number;
   pendingTentClearance: number;
+  balanceAfterTent: number;
   durgaCleaningAdjustment: number;
+  balanceAfterCleaning: number;
+  awardsSnacksSamosa: number;
+  balanceAfterSamosa: number;
+  chipsKurkure: number;
+  totalPaidByShashi: number;
   finalNetSavings: number;
 }
 
@@ -103,8 +109,44 @@ export const CENTRAL_TREASURY_DATA: CentralTreasury = {
   tentSoundLightVendors: 26451,
   preliminaryHandBalance: 5121,
   pendingTentClearance: 3000,
+  balanceAfterTent: 2121,
   durgaCleaningAdjustment: 300,
-  finalNetSavings: 1821,
+  balanceAfterCleaning: 1821,
+  awardsSnacksSamosa: 421,
+  balanceAfterSamosa: 1400,
+  chipsKurkure: 350,
+  totalPaidByShashi: 38974,
+  finalNetSavings: 1050,
+};
+
+export interface ConsolidatedFestivalAudit {
+  grossCollection: number;
+  shashiDirectExpenses: number;
+  shrivastavDirectExpenses: number;
+  interAccountFundTransfer: number;
+  totalConsolidatedExpenses: number;
+  netAvailableSurplus: number;
+  surplusBreakdown: {
+    cashWithOtherCollectors: number;
+    bhandaraCashHeld: number;
+    onlineAuditDifference: number;
+    netHandBalanceAdjustment: number;
+  };
+}
+
+export const CONSOLIDATED_FESTIVAL_AUDIT: ConsolidatedFestivalAudit = {
+  grossCollection: 64651,
+  shashiDirectExpenses: 38974,
+  shrivastavDirectExpenses: 21155,
+  interAccountFundTransfer: 0,
+  totalConsolidatedExpenses: 60129,
+  netAvailableSurplus: 4522,
+  surplusBreakdown: {
+    cashWithOtherCollectors: 2500,
+    bhandaraCashHeld: 1200,
+    onlineAuditDifference: 950,
+    netHandBalanceAdjustment: -128,
+  },
 };
 
 export interface OnlineAuditDiscrepancy {
@@ -221,7 +263,7 @@ export interface DonorRecord {
   type: 'chanda';
 }
 
-// 1. EXACT CANONICAL 40 ONLINE CHANDA DONOR RECORDS (Sum: ₹31,719)
+// 1. EXACT CANONICAL ONLINE CHANDA DONOR RECORDS (Sum: ₹33,919)
 export const ONLINE_DONORS_40: DonorRecord[] = [
   { sNo: 1, nameHi: "बाथम जी", nameEn: "Batham Ji", amount: 1100, mode: "Online", type: "chanda" },
   { sNo: 2, nameHi: "नन्हेलाल जी", nameEn: "Nanhelal Ji", amount: 201, mode: "Online", type: "chanda" },
@@ -263,9 +305,11 @@ export const ONLINE_DONORS_40: DonorRecord[] = [
   { sNo: 38, nameHi: "मुकेश कोटिया जी", nameEn: "Mukesh Kotiya Ji", amount: 501, mode: "Online", type: "chanda" },
   { sNo: 39, nameHi: "रानी अहिरवार", nameEn: "Rani Ahirwar", amount: 501, mode: "Online", type: "chanda" },
   { sNo: 40, nameHi: "नरेन्द्र कुमार जी", nameEn: "Narendra Kumar Ji", amount: 500, mode: "Online", type: "chanda" },
+  { sNo: 41, nameHi: "प्रवीण बरकट जी", nameEn: "Praveen Barkat Ji", amount: 1100, mode: "Online", type: "chanda" },
+  { sNo: 42, nameHi: "गजेन्द्र विश्वकर्मा जी", nameEn: "Gajendra Vishwakarma Ji", amount: 1100, mode: "Online", type: "chanda" },
 ];
 
-// 2. EXACT CANONICAL 32 CONSOLIDATED CASH CHANDA RECORDS (Sum: ₹27,221)
+// 2. EXACT CANONICAL 34 CONSOLIDATED CASH CHANDA RECORDS (Sum: ₹27,032)
 export const CASH_DONORS_32: DonorRecord[] = [
   { sNo: 1, nameHi: "गौरव गुप्ता", nameEn: "Gaurav Gupta", amount: 501, mode: "Cash", type: "chanda" },
   { sNo: 2, nameHi: "एस. प्रतिभान", nameEn: "S. Pratibhan", amount: 200, mode: "Cash", type: "chanda" },
@@ -292,13 +336,15 @@ export const CASH_DONORS_32: DonorRecord[] = [
   { sNo: 23, nameHi: "लक्ष्मण जी", nameEn: "Laxman Ji", amount: 100, mode: "Cash", type: "chanda" },
   { sNo: 24, nameHi: "देवेश वर्मा जी", nameEn: "Devesh Verma Ji", amount: 1100, mode: "Cash", type: "chanda" },
   { sNo: 25, nameHi: "मोनू कुशवाहा जी", nameEn: "Monu Kushwaha Ji", amount: 500, mode: "Cash", type: "chanda" },
-  { sNo: 26, nameHi: "राजीव रंजन जी", nameEn: "Rajeev Ranjan Ji", amount: 901, mode: "Cash", type: "chanda" },
+  { sNo: 26, nameHi: "राजीव रंजन जी", nameEn: "Rajeev Ranjan Ji", amount: 101, mode: "Cash", type: "chanda" },
   { sNo: 27, nameHi: "भारत भूषण जी", nameEn: "Bharat Bhushan Ji", amount: 2100, mode: "Cash", type: "chanda" },
   { sNo: 28, nameHi: "रवि (पुलिस)", nameEn: "Ravi (Police)", amount: 1000, mode: "Cash", type: "chanda" },
   { sNo: 29, nameHi: "सुरेन्द्र कुशवाहा", nameEn: "Surendra Kushwaha", amount: 101, mode: "Cash", type: "chanda" },
   { sNo: 30, nameHi: "कमल सिंह", nameEn: "Kamal Singh", amount: 501, mode: "Cash", type: "chanda" },
   { sNo: 31, nameHi: "डॉ. आशीष", nameEn: "Dr. Ashish", amount: 1200, mode: "Cash", type: "chanda" },
   { sNo: 32, nameHi: "रघुवीर बुंदेला", nameEn: "Raghuveer Bundela", amount: 1101, mode: "Cash", type: "chanda" },
+  { sNo: 33, nameHi: "नागर जी", nameEn: "Nagar Ji", amount: 111, mode: "Cash", type: "chanda" },
+  { sNo: 34, nameHi: "मनीष जी 76", nameEn: "Manish Ji 76", amount: 500, mode: "Cash", type: "chanda" },
 ];
 
 export interface ExpenseRecord {
@@ -316,28 +362,61 @@ export interface ExpenseRecord {
 
 export const EXPENSE_DETAILS: ExpenseRecord[] = [
   {
-    id: "daily-pooja-samagri",
-    categoryHi: "दैनिक पूजा, सामग्री व प्रसाद",
-    categoryEn: "Daily Pooja, Ritual Samagri & Prasad",
-    totalAmount: 8452,
+    id: "tent-sound-vendors",
+    categoryHi: "१. टेंट, पंडाल, साउंड, लाइट, जनरेटर व डेकोरेशन व्यवस्था",
+    categoryEn: "1. Pandal Setup, Sound System, Lighting, Power & Decor",
+    totalAmount: 30452,
     items: [
-      { nameHi: "दैनिक पूजन सामग्री, रोली, चंदन, कपूर, धूप, दीप", nameEn: "Daily Pooja Samagri, Roli, Chandan, Dhoop, Deep", amount: 3250 },
-      { nameHi: "मोदक भोग, लड्डू, दैनिक फल व पंचामृत प्रसाद", nameEn: "Modak Bhog, Laddoo, Fruits & Panchamrit Prasad", amount: 2850 },
-      { nameHi: "ताजे पुष्प, मालाएं, दूर्वा एवं विशेष हार", nameEn: "Fresh Flowers, Garlands & Sacred Durva", amount: 1452 },
-      { nameHi: "हवन समिधा, घी एवं नारियल आहुति", nameEn: "Havan Samidha, Pure Ghee & Coconuts", amount: 900 },
+      { nameHi: "मुख्य टेंट व्यवस्था, वॉटरप्रूफ शेड व बैठक कुर्सियां", nameEn: "Grand Pandal Setup, Waterproof Roof & Chairs", amount: 12500 },
+      { nameHi: "साउंड सिस्टम, माइक, एम्पलीफायर व भजन संगीत व्यवस्था", nameEn: "Sound System, Microphones, Amplifiers & Audio", amount: 5800 },
+      { nameHi: "उत्सव डेकोरेशन, भव्य लाइटिंग व मंदिर सजावट", nameEn: "Pandal Illumination, Decorative Lights & Temple Decor", amount: 4651 },
+      { nameHi: "टेंट व्यवस्था का अंतिम बकाया भुगतान", nameEn: "Tent Setup Final Clearance Payment", amount: 3000 },
+      { nameHi: "जनरेटर बैकअप, डीजल व विद्युत सुरक्षा व्यवस्था", nameEn: "Generator Power Backup, Fuel & Electrical Wiring", amount: 2000 },
+      { nameHi: "ढोल-ताशा वादक दल एवं विसर्जन वाहन व्यवस्था", nameEn: "Dhol-Tasha Troupe & Visarjan Transport Logistics", amount: 1500 },
+      { nameHi: "अतिरिक्त डेकोरेशन सामग्री (पत्ती, फेवीकोल, पिन आदि)", nameEn: "Additional Decoration Material (Leaves, Fevicol, Pins)", amount: 351 },
+      { nameHi: "अतिरिक्त डेकोरेशन व विद्युत सज्जा व्यय", nameEn: "Additional Decoration & Lighting Expense", amount: 650 },
     ],
   },
   {
-    id: "tent-sound-vendors",
-    categoryHi: "टेंट, साउंड, लाइट व प्रमुख विक्रेता",
-    categoryEn: "Tent, Sound, Light & Major Vendor Payments",
-    totalAmount: 26451,
+    id: "bhandara-refreshments",
+    categoryHi: "२. भंडारा महाप्रसाद, हलवाई, राशन एवं स्वल्पाहार",
+    categoryEn: "2. Grand Bhandara Feast, Chef, Provisions & Refreshments",
+    totalAmount: 14542,
     items: [
-      { nameHi: "पंडाल व्यवस्था, मुख्य टेंट, वॉटरप्रूफ शेड व बैठक कुर्सियां", nameEn: "Grand Pandal Setup, Waterproof Roof & Chairs", amount: 12500 },
-      { nameHi: "साउंड सिस्टम, माइक, एम्पलीफायर व भजन संगीत व्यवस्था", nameEn: "Sound System, Microphones, Amplifiers & Bhajan Audio", amount: 5800 },
-      { nameHi: "उत्सव डेकोरेशन, भव्य लाइटिंग व मंदिर सजावट", nameEn: "Pandal Illumination, Decorative Lights & Temple Decor", amount: 4651 },
-      { nameHi: "जनरेटर बैकअप, डीजल व विद्युत सुरक्षा व्यवस्था", nameEn: "Generator Power Backup, Fuel & Electrical Wiring", amount: 2000 },
-      { nameHi: "ढोल-ताशा वादक दल एवं विसर्जन वाहन व्यवस्था", nameEn: "Dhol-Tasha Troupe & Visarjan Transport Logistics", amount: 1500 },
+      { nameHi: "भंडारा महाप्रसाद हलवाई (जैन)", nameEn: "Bhandara Chef / Halwai (Jain)", amount: 3500 },
+      { nameHi: "किराना राशन सामग्री (D-Mart)", nameEn: "Bhandara Grocery Provisions (D-Mart)", amount: 5615 },
+      { nameHi: "छोले सामग्री (D-Mart)", nameEn: "Chhole Provisions (D-Mart)", amount: 356 },
+      { nameHi: "दोने व पत्तल (भंडारा वितरण व्यवस्था)", nameEn: "Dishes & Pattal (Bhandara Serving)", amount: 1610 },
+      { nameHi: "ताजी सब्जी एवं सलाद (भंडारा)", nameEn: "Fresh Vegetables & Salad", amount: 1190 },
+      { nameHi: "दूध (भोग, चरणामृत एवं भंडारा)", nameEn: "Fresh Milk for Bhog & Panchamrit", amount: 900 },
+      { nameHi: "पुरस्कार वितरण — बच्चों के लिए 60 समोसे", nameEn: "Awards Ceremony — 60 Samosas for Children", amount: 421 },
+      { nameHi: "बच्चों का स्वल्पाहार — चिप्स + कुरकुरे", nameEn: "Children Refreshment — Chips + Kurkure", amount: 350 },
+      { nameHi: "समोसे 25 (रुचिकर)", nameEn: "25 Samosas (Ruchikar)", amount: 250 },
+      { nameHi: "गणपति लाते / Booking करते समय चाय नाश्ता", nameEn: "Arrival & Booking Refreshments", amount: 350 },
+    ],
+  },
+  {
+    id: "daily-pooja-visarjan",
+    categoryHi: "३. दैनिक पूजन सामग्री, भोग, पुष्प, विसर्जन व व्यवस्था",
+    categoryEn: "3. Daily Pooja Samagri, Offerings, Flowers, Visarjan & Logistics",
+    totalAmount: 15135,
+    items: [
+      { nameHi: "दैनिक पूजन सामग्री, रोली, चंदन, कपूर, धूप, दीप", nameEn: "Daily Pooja Samagri, Roli, Chandan, Dhoop, Deep", amount: 3250 },
+      { nameHi: "मोदक भोग, लड्डू, दैनिक फल व पंचामृत प्रसाद", nameEn: "Modak Bhog, Laddoo, Fruits & Panchamrit Prasad", amount: 2850 },
+      { nameHi: "पूजन सामग्री प्रदीप जैन (झांकी व्यवस्था)", nameEn: "Pooja Samagri (Pradeep Jain)", amount: 1843 },
+      { nameHi: "ताजे पुष्प, मालाएं, दूर्वा एवं विशेष हार", nameEn: "Fresh Flowers, Garlands & Sacred Durva", amount: 1452 },
+      { nameHi: "हवन समिधा, घी एवं नारियल आहुति", nameEn: "Havan Samidha, Pure Ghee & Coconuts", amount: 900 },
+      { nameHi: "ताजे फूल 10 kg गेंदा फूल माला हेतु", nameEn: "Fresh Flowers, 10 kg Marigold Garlands", amount: 800 },
+      { nameHi: "पतंजलि शुद्ध घी, रुई, पान, जनेऊ आदि", nameEn: "Patanjali Pure Ghee, Cotton, Paan & Janeu", amount: 635 },
+      { nameHi: "विसर्जन सामग्री (रंग, अबीर, लाई, चिरोंजी, लड्डू आदि)", nameEn: "Visarjan Materials (Colors, Laai, Prasad)", amount: 550 },
+      { nameHi: "ड्रायफ्रूट एवं शुद्ध घी (जय किराना)", nameEn: "Dry Fruits & Pure Ghee (Jai Kirana)", amount: 530 },
+      { nameHi: "पंडाल व्यवस्था व सेवा मानदेय (संतोष वर्कर)", nameEn: "Pandal Assistance & Worker Honorarium", amount: 500 },
+      { nameHi: "घी, कपूर एवं पान सामग्री (आंटी पान)", nameEn: "Pure Ghee, Camphor & Betel Offerings", amount: 470 },
+      { nameHi: "दुर्गा सफाई सेवा समायोजन", nameEn: "Durga Cleaning Service Adjustment", amount: 300 },
+      { nameHi: "डेकोरेशन पत्ती, फेवीकोल, पिन आदि", nameEn: "Decoration Leaves, Adhesive & Pins", amount: 280 },
+      { nameHi: "प्रसाद चिरौंजी, लाई, शकर, पान आदि", nameEn: "Prasad Chiranji, Sugar & Offerings", amount: 265 },
+      { nameHi: "दैनिक पूजन हेतु लड्डू एवं केले", nameEn: "Daily Pooja Laddoo & Bananas", amount: 260 },
+      { nameHi: "मिठाई प्रसाद व केले", nameEn: "Sweets Prasad & Bananas", amount: 250 },
     ],
   },
 ];
@@ -767,23 +846,25 @@ export interface DiaryEvidenceItem {
 export const DIARY_EVIDENCE_ITEMS: DiaryEvidenceItem[] = [
   {
     id: "diary-central-summary",
-    titleHi: "केन्द्रीय आय-व्यय व बचत सारांश पृष्ठ",
-    titleEn: "Central Treasury Inflow-Outflow & Savings Ledger",
+    titleHi: "केन्द्रीय आय-व्यय, पुरस्कार वितरण व अंतिम शेष पर्ची",
+    titleEn: "Central Treasury Inflow-Outflow, Awards & Net Balance Slip",
     category: "summary",
     categoryLabelHi: "सारांश",
-    keyFigureHi: "आवक ₹40,024 | व्यय ₹34,903 | शुद्ध बचत ₹1,821",
-    keyFigureEn: "Inflow ₹40,024 | Outflow ₹34,903 | Net ₹1,821",
+    keyFigureHi: "आवक ₹40,024 | कुल व्यय/भुगतान ₹38,974 | अंतिम शेष ₹1,050",
+    keyFigureEn: "Inflow ₹40,024 | Outflow ₹38,974 | Net Balance ₹1,050",
     svgType: "ledger_central",
-    pageNo: "अभिलेख पृष्ठ ०१",
-    descriptionHi: "हस्तलिखित केन्द्रीय डायरी पृष्ठ जिसमें कुल चंदा राशि ₹40,024, कुल खर्च ₹34,903, बाकी बचा ₹5,121, टेंट शेष ₹3,000 व दुर्गा सफाई ₹300 समायोजन उपरांत शुद्ध बचत ₹1,821 स्पष्ट दर्ज है।",
-    descriptionEn: "Original handwritten treasury balance page recording gross inflow ₹40,024, outflow ₹34,903, initial balance ₹5,121, and net surplus ₹1,821.",
+    pageNo: "अभिलेख पृष्ठ ०१ (अद्यतन)",
+    descriptionHi: "शशि आर्या जी की मूल अद्यतन हस्तलिखित डायरी पर्ची जिसमें कुल चंदा राशि ₹40,024, प्रारंभिक खर्च ₹34,903 (शेष ₹5,121), टेंट शेष -₹3,000 (शेष ₹2,121), दुर्गा सफाई -₹300 (शेष ₹1,821), पुरस्कार वितरण समोसे -₹421 (शेष ₹1,400) तथा चिप्स-कुरकुरे -₹350 उपरांत अंतिम शेष राशि ₹1,050 प्रमाणित दर्ज है।",
+    descriptionEn: "Original updated handwritten diary slip by Shashi Arya recording gross inflow ₹40,024, preliminary expenses ₹34,903, tent clearance ₹3,000, cleaning ₹300, award samosas ₹421, chips-kurkure ₹350, leaving verified final cash in hand ₹1,050.",
     verifiedNotes: [
       "कुल चंदा राशि: ₹40,024 (online + cash)",
       "कुल खर्च by Shashi: ₹34,903",
       "बाकी बचा (प्रारंभिक शेष): ₹5,121",
-      "टेंट का देना बाकी: ₹3,000",
-      "दुर्गा सफाई के: ₹300",
-      "अंतिम शेष राशि: ₹1,821"
+      "टेंट का देना बाकी: ₹3,000 (शेष: ₹2,121)",
+      "दुर्गा सफाई के: ₹300 (शेष: ₹1,821)",
+      "पुरस्कार वितरण (60 समोसे): ₹421 (शेष: ₹1,400)",
+      "चिप्स + कुरकुरे: ₹350",
+      "अंतिम शेष राशि (Final Cash in Hand): ₹1,050"
     ],
   },
   {

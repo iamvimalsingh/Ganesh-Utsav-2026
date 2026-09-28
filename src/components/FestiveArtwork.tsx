@@ -93,9 +93,9 @@ export const FestiveArtwork: React.FC<FestiveArtworkProps> = ({ type, className 
               </span>
             </div>
 
-            <div className="space-y-2 pt-1 text-stone-900 font-semibold text-xs sm:text-sm">
+            <div className="space-y-1.5 pt-1 text-stone-900 font-semibold text-xs sm:text-sm">
               <div className="bg-blue-50/90 p-2 rounded-lg border border-blue-200 flex justify-between items-center text-blue-950">
-                <span>कुल चंदा राशि (online + cash):</span>
+                <span>कुल चंदा राशि जो मेरे पास है (online + cash):</span>
                 <strong className="text-emerald-800 text-base sm:text-lg font-serif">₹40,024/-</strong>
               </div>
 
@@ -109,12 +109,12 @@ export const FestiveArtwork: React.FC<FestiveArtworkProps> = ({ type, className 
                 <strong className="text-[#780016] text-base sm:text-lg font-serif">₹5,121/-</strong>
               </div>
 
-              <div className="pl-4 border-l-2 border-amber-400 space-y-1.5 py-1 text-xs text-stone-700">
+              <div className="pl-3 border-l-2 border-amber-400 space-y-1 py-1 text-[11px] sm:text-xs text-stone-700 font-mono">
                 <div className="flex justify-between">
                   <span>− टेन्ट का देना बाकी:</span>
                   <span className="font-bold text-stone-900">₹3,000/-</span>
                 </div>
-                <div className="flex justify-between text-[#780016]">
+                <div className="flex justify-between text-[#780016] font-semibold">
                   <span>= शेष राशि मेरे पास बचेगी:</span>
                   <span className="font-bold">₹2,121/-</span>
                 </div>
@@ -122,18 +122,34 @@ export const FestiveArtwork: React.FC<FestiveArtworkProps> = ({ type, className 
                   <span>− दुर्गा सफाई के:</span>
                   <span className="font-bold text-stone-900">₹300/-</span>
                 </div>
+                <div className="flex justify-between text-[#780016] font-semibold">
+                  <span>= शेष राशि:</span>
+                  <span className="font-bold">₹1,821/-</span>
+                </div>
+                <div className="flex justify-between text-rose-900">
+                  <span>− पुरस्कार वितरण (बच्चों के लिए 60 समोसे):</span>
+                  <span className="font-bold text-rose-900">₹421/-</span>
+                </div>
+                <div className="flex justify-between text-[#780016] font-semibold">
+                  <span>= शेष:</span>
+                  <span className="font-bold">₹1,400/-</span>
+                </div>
+                <div className="flex justify-between text-rose-900">
+                  <span>− चिप्स + कुरकुरे:</span>
+                  <span className="font-bold text-rose-900">₹350/-</span>
+                </div>
               </div>
 
               <div className="bg-gradient-to-r from-emerald-100 via-emerald-50 to-emerald-100 border-2 border-emerald-600 p-2.5 rounded-xl flex justify-between items-center text-emerald-950 font-bold shadow-sm">
-                <span>= अंतिम शेष राशि (शुद्ध बचत):</span>
-                <strong className="text-emerald-800 text-lg sm:text-xl font-serif font-black">₹1,821/-</strong>
+                <span>= अंतिम शेष राशि बची (Final Cash):</span>
+                <strong className="text-emerald-800 text-lg sm:text-xl font-serif font-black">₹1,050/-</strong>
               </div>
             </div>
           </div>
 
           <div className="relative z-10 flex justify-between items-center text-[10px] sm:text-xs text-stone-500 border-t border-stone-300 pt-2 mt-2">
-            <span>हस्तलिखित डायरी अभिलेख (मूल प्रति)</span>
-            <span className="font-bold text-[#780016] bg-amber-100/80 px-2 py-0.5 rounded">✓ सत्यापित प्रविष्टि</span>
+            <span>हस्तलिखित डायरी अभिलेख (अद्यतन प्रति)</span>
+            <span className="font-bold text-[#780016] bg-amber-100/80 px-2 py-0.5 rounded">✓ सत्यापित अंतिम शेष = ₹1,050</span>
           </div>
         </div>
       );

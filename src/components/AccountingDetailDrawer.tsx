@@ -27,6 +27,7 @@ import {
   CASH_DONORS_32,
   CENTRAL_TREASURY_DATA,
   ONLINE_AUDIT_INFO,
+  CONSOLIDATED_FESTIVAL_AUDIT,
   EXPENSE_DETAILS,
   DIARY_EVIDENCE_ITEMS,
   DiaryEvidenceItem
@@ -244,8 +245,8 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                 </div>
                 <p className="text-xs sm:text-sm text-stone-700 max-w-xl mx-auto font-sans">
                   {lang === 'hi'
-                    ? 'कॉलोनी के सभी 40 ऑनलाइन दानदाताओं, 32 नकद प्रविष्टियों एवं 4 समर्पित भंडारा सहयोगियों का पूर्ण वास्तविक संकलन।'
-                    : 'Complete verified sum of 40 online records, 32 cash donations, and 4 dedicated bhandara contributors.'}
+                    ? `कॉलोनी के सभी 40 ऑनलाइन दानदाताओं, ${CASH_DONORS_32.length} नकद प्रविष्टियों एवं 4 समर्पित भंडारा सहयोगियों का पूर्ण वास्तविक संकलन।`
+                    : `Complete verified sum of 40 online records, ${CASH_DONORS_32.length} cash donations, and 4 dedicated bhandara contributors.`}
                 </p>
               </div>
 
@@ -256,42 +257,42 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                     {lang === 'hi' ? 'सटीक गणितीय समीकरण' : 'Exact Mathematical Equation'}
                   </span>
                   <h4 className="text-lg sm:text-2xl font-serif font-bold text-white mt-1.5">
-                    {lang === 'hi' ? 'कुल संग्रह ₹62,640 कैसे बना?' : 'How ₹62,640 Total Was Calculated'}
+                    {lang === 'hi' ? `कुल संग्रह ₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} कैसे बना?` : `How ₹${GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} Total Was Calculated`}
                   </h4>
                 </div>
 
                 <div className="flex flex-wrap items-center justify-center gap-3 text-center font-mono text-sm sm:text-base font-bold">
                   <div className="bg-white/10 p-3 rounded-2xl border border-white/20 min-w-[130px]">
                     <span className="block text-[11px] text-[#FFDF80] font-sans font-normal">ऑनलाइन चंदा (40)</span>
-                    <span className="text-white text-lg sm:text-xl">₹31,719</span>
+                    <span className="text-white text-lg sm:text-xl">₹{GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')}</span>
                   </div>
 
                   <Plus className="w-5 h-5 text-[#D4AF37]" />
 
                   <div className="bg-white/10 p-3 rounded-2xl border border-white/20 min-w-[130px]">
-                    <span className="block text-[11px] text-[#FFDF80] font-sans font-normal">नकद चंदा (32)</span>
-                    <span className="text-white text-lg sm:text-xl">₹27,221</span>
+                    <span className="block text-[11px] text-[#FFDF80] font-sans font-normal">नकद चंदा ({CASH_DONORS_32.length})</span>
+                    <span className="text-white text-lg sm:text-xl">₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}</span>
                   </div>
 
                   <Equal className="w-5 h-5 text-[#D4AF37]" />
 
                   <div className="bg-amber-400/20 p-3 rounded-2xl border border-amber-300/40 min-w-[130px]">
                     <span className="block text-[11px] text-amber-200 font-sans font-normal">सामान्य चंदा</span>
-                    <span className="text-[#FFDF80] text-lg sm:text-xl">₹58,940</span>
+                    <span className="text-[#FFDF80] text-lg sm:text-xl">₹{GROSS_COLLECTION_DATA.chandaSubtotal.toLocaleString('en-IN')}</span>
                   </div>
 
                   <Plus className="w-5 h-5 text-[#D4AF37]" />
 
                   <div className="bg-emerald-500/20 p-3 rounded-2xl border border-emerald-400/40 min-w-[140px]">
                     <span className="block text-[11px] text-emerald-200 font-sans font-normal">अतिरिक्त भंडारा</span>
-                    <span className="text-emerald-300 text-lg sm:text-xl">₹3,700</span>
+                    <span className="text-emerald-300 text-lg sm:text-xl">₹{GROSS_COLLECTION_DATA.bhandaraTotal.toLocaleString('en-IN')}</span>
                   </div>
 
                   <Equal className="w-5 h-5 text-[#D4AF37]" />
 
                   <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 p-3.5 rounded-2xl border-2 border-emerald-300 min-w-[150px] shadow-lg">
                     <span className="block text-[11px] text-white/90 font-sans font-bold">कुल संग्रह</span>
-                    <span className="text-white text-xl sm:text-2xl font-serif font-black">₹62,640</span>
+                    <span className="text-white text-xl sm:text-2xl font-serif font-black">₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
               </div>
@@ -337,7 +338,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                         <Banknote className="w-5 h-5" />
                       </span>
                       <span className="text-[11px] font-bold text-emerald-900 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-                        32 प्रविष्टियाँ
+                        {CASH_DONORS_32.length} प्रविष्टियाँ
                       </span>
                     </div>
                     <span className="text-xs text-stone-500 font-semibold block">2. नकद चंदा</span>
@@ -345,7 +346,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                       ₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}
                     </div>
                     <p className="text-xs text-stone-600 mt-2">
-                      32 नकद चंदा प्रविष्टियों का सार्वजनिक ब्योरा व मूल कैश रजिस्टर।
+                      {CASH_DONORS_32.length} नकद चंदा प्रविष्टियों का सार्वजनिक ब्योरा व मूल कैश रजिस्टर।
                     </p>
                   </div>
                   <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-xs font-bold text-emerald-700 group-hover:text-emerald-900">
@@ -564,10 +565,10 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                     <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold border border-emerald-200">
                       नकद संकलन
                     </span>
-                    <span className="text-xs text-stone-500 font-bold">32 प्रविष्टियाँ</span>
+                    <span className="text-xs text-stone-500 font-bold">{CASH_DONORS_32.length} प्रविष्टियाँ</span>
                   </div>
                   <h3 className="text-2xl font-serif font-black text-[#780016] mt-1">
-                    कैश चंदा — 32 प्रविष्टियाँ
+                    कैश चंदा — {CASH_DONORS_32.length} प्रविष्टियाँ
                   </h3>
                 </div>
 
@@ -589,7 +590,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                     सार्वजनिक नकद संकलन (Consolidated Cash Chanda)
                   </span>
                   <p className="text-xs text-stone-600 mt-0.5">
-                    मयूर होम्स कॉलोनी के 32 सदस्यों द्वारा समर्पित नकद चंदे का पूर्ण पारदर्शी रिकॉर्ड।
+                    मयूर होम्स कॉलोनी के {CASH_DONORS_32.length} सदस्यों द्वारा समर्पित नकद चंदे का पूर्ण पारदर्शी रिकॉर्ड।
                   </p>
                 </div>
                 <div className="text-right shrink-0">
@@ -620,14 +621,14 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                     onChange={(e) => setCashSort(e.target.value as any)}
                     className="bg-white border border-stone-300 rounded-xl px-2.5 py-1 text-xs font-semibold focus:outline-none"
                   >
-                    <option value="sNo">क्रमानुसार (1-32)</option>
+                    <option value="sNo">क्रमानुसार (1-{CASH_DONORS_32.length})</option>
                     <option value="amountDesc">राशि: अधिक से कम</option>
                     <option value="amountAsc">राशि: कम से अधिक</option>
                   </select>
                 </div>
               </div>
 
-              {/* Itemized 32 Donor Table */}
+              {/* Itemized Donor Table */}
               <div className="overflow-x-auto rounded-2xl border border-stone-200 shadow-sm bg-white">
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
@@ -656,7 +657,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                       </tr>
                     ))}
                     <tr className="bg-emerald-50/90 font-bold border-t-2 border-emerald-400 text-emerald-950">
-                      <td colSpan={3} className="py-3 px-3">32 नकद प्रविष्टियों का कुल योग:</td>
+                      <td colSpan={3} className="py-3 px-3">{CASH_DONORS_32.length} नकद प्रविष्टियों का कुल योग:</td>
                       <td className="py-3 px-3 text-right font-serif font-black text-emerald-900 text-base">
                         ₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}
                       </td>
@@ -784,10 +785,10 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
               <div className="bg-rose-50/80 border-2 border-rose-300 rounded-2xl p-4 sm:p-5 shadow-sm space-y-2">
                 <div className="flex items-center gap-2 font-bold text-rose-900 text-xs sm:text-sm">
                   <AlertCircle className="w-4 h-4 text-rose-700" />
-                  <span>महत्वपूर्ण लेखा अंतर: कुल संकलन (₹62,640) बनाम केंद्रीय खाता (₹40,024)</span>
+                  <span>महत्वपूर्ण लेखा अंतर: कुल संकलन (₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}) बनाम केंद्रीय खाता (₹{CENTRAL_TREASURY_DATA.totalInflow.toLocaleString('en-IN')})</span>
                 </div>
                 <p className="text-xs text-stone-700 leading-relaxed font-sans">
-                  "**₹62,640** पूरे उत्सव के उपलब्ध संग्रह रिकॉर्ड का कुल सार्वजनिक संग्रह है। **₹40,024** शशि जी के केंद्रीय खाते में दर्ज राशि है। दोनों अलग accounting views हैं।"
+                  "**₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')}** पूरे उत्सव के उपलब्ध संग्रह रिकॉर्ड का कुल सार्वजनिक संग्रह है। **₹{CENTRAL_TREASURY_DATA.totalInflow.toLocaleString('en-IN')}** शशि जी के केंद्रीय खाते में दर्ज राशि है। दोनों अलग accounting views हैं।"
                 </p>
                 <p className="text-xs text-stone-600 leading-relaxed pt-1">
                   यह केंद्रीय खाते में दर्ज स्रोत-रिकॉर्ड राशि है। इसे पूरे उत्सव के कुल संग्रह के बराबर न माना जाए।
@@ -821,17 +822,17 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                 <div className="pt-2 border-t border-stone-200 flex items-center justify-between font-bold text-emerald-900 text-sm">
                   <span>केंद्रीय आवक कुल योग:</span>
                   <span className="text-xl font-serif font-black text-emerald-900">
-                    ₹30,769 + ₹8,055 + ₹1,200 = ₹40,024
+                    ₹{CENTRAL_TREASURY_DATA.onlineChandaWritten.toLocaleString('en-IN')} + ₹{CENTRAL_TREASURY_DATA.cashWithShashiJi.toLocaleString('en-IN')} + ₹{CENTRAL_TREASURY_DATA.onlineBhandara.toLocaleString('en-IN')} = ₹{CENTRAL_TREASURY_DATA.totalInflow.toLocaleString('en-IN')}
                   </span>
                 </div>
               </div>
 
-              {/* Difference Box: ₹22,616 */}
+              {/* Difference Box */}
               <div className="bg-amber-50/70 border border-amber-300 rounded-2xl p-4 space-y-2">
                 <div className="flex items-center justify-between text-xs font-bold text-amber-900">
                   <span>केंद्रीय खाते से अलग दर्ज संग्रह/प्रवाह:</span>
                   <span className="text-base font-serif font-black text-[#780016]">
-                    ₹62,640 − ₹40,024 = ₹22,616
+                    ₹{GROSS_COLLECTION_DATA.grossTotal.toLocaleString('en-IN')} − ₹{CENTRAL_TREASURY_DATA.totalInflow.toLocaleString('en-IN')} = ₹{(GROSS_COLLECTION_DATA.grossTotal - CENTRAL_TREASURY_DATA.totalInflow).toLocaleString('en-IN')}
                   </span>
                 </div>
                 <p className="text-[11px] text-stone-600 leading-relaxed">
@@ -842,9 +843,9 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
               {/* Inflow vs Outflow Calculation */}
               <div className="bg-stone-50 rounded-2xl border border-stone-200 p-4 space-y-2 text-xs">
                 <div className="flex items-center justify-between font-bold text-stone-800">
-                  <span>केंद्रीय आवक (₹40,024) − दर्ज व्यय (₹34,903):</span>
+                  <span>केंद्रीय आवक (₹{CENTRAL_TREASURY_DATA.totalInflow.toLocaleString('en-IN')}) − दर्ज व्यय (₹{CENTRAL_TREASURY_DATA.totalOutflow.toLocaleString('en-IN')}):</span>
                   <span className="font-serif font-black text-amber-900 text-base">
-                    प्रारंभिक शेष: ₹5,121
+                    प्रारंभिक शेष: ₹{CENTRAL_TREASURY_DATA.preliminaryHandBalance.toLocaleString('en-IN')}
                   </span>
                 </div>
                 <p className="text-[11px] text-stone-500">
@@ -855,7 +856,7 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
           )}
 
           {/* ============================================================ */}
-          {/* TAB 6: EXPENSES — "अब तक दर्ज केंद्रीय व्यय" */}
+          {/* TAB 6: EXPENSES — "सकल प्रमाणित उत्सव व्यय" */}
           {/* ============================================================ */}
           {currentTab === 'expenses' && (
             <div className="space-y-6 animate-fade-in">
@@ -864,12 +865,12 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-900 text-[11px] font-bold border border-rose-200">
-                      केंद्रीय व्यय
+                      प्रमाणित व्यय
                     </span>
-                    <span className="text-xs text-stone-500 font-bold">प्रमाणित वाउचर</span>
+                    <span className="text-xs text-stone-500 font-bold">3 मुख्य श्रेणियां</span>
                   </div>
                   <h3 className="text-2xl font-serif font-black text-[#780016] mt-1">
-                    अब तक दर्ज केंद्रीय व्यय — ₹34,903
+                    सकल प्रमाणित उत्सव व्यय — ₹{CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')}
                   </h3>
                 </div>
 
@@ -884,47 +885,56 @@ export const AccountingDetailDrawer: React.FC<AccountingDetailDrawerProps> = ({
                 )}
               </div>
 
-              {/* Progress Note */}
-              <div className="bg-amber-50 border border-amber-300 rounded-2xl p-3.5 text-xs text-amber-900 font-semibold flex items-center gap-2">
-                <Clock className="w-4 h-4 text-amber-800 shrink-0" />
-                <span>"व्यय विवरण का अंतिम अद्यतन अभी प्रक्रियाधीन है।"</span>
-              </div>
-
-              {/* Category 1: Daily Pooja */}
+              {/* Category 1: Tent, Sound & Lighting */}
               <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm space-y-3">
                 <div className="flex items-center justify-between border-b border-stone-200 pb-2">
                   <h4 className="font-serif font-bold text-[#780016] text-base">
-                    १. दैनिक पूजा, सामग्री व प्रसाद
+                    १. टेंट, पंडाल, साउंड, लाइट, जनरेटर व डेकोरेशन व्यवस्था
                   </h4>
                   <span className="font-serif font-black text-rose-900 text-lg">
-                    ₹{CENTRAL_TREASURY_DATA.dailyPoojaSamagriPrasad.toLocaleString('en-IN')}
+                    ₹30,452
                   </span>
                 </div>
                 <p className="text-xs text-stone-600 leading-relaxed">
-                  दैनिक पूजन सामग्री (माला ₹650, दूध-दही ₹774, लड्डू ₹2770, फल ₹950, साफा ₹430, सिलेंडर ₹950, पूजन कपड़ा ₹160, आदि)।
+                  मुख्य टेंट व्यवस्था (₹12,500), साउंड सिस्टम (₹5,800), पंडाल लाइटिंग व मंदिर सजावट (₹4,651), टेंट अंतिम भुगतान (₹3,000), जनरेटर पावर बैकअप (₹2,000), ढोल-ताशा वादक दल व विसर्जन वाहन (₹1,500), अतिरिक्त डेकोरेशन (₹351 + ₹650)।
                 </p>
               </div>
 
-              {/* Category 2: Infrastructure */}
+              {/* Category 2: Bhandara Feast & Refreshments */}
               <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm space-y-3">
                 <div className="flex items-center justify-between border-b border-stone-200 pb-2">
                   <h4 className="font-serif font-bold text-[#780016] text-base">
-                    २. टेंट, साउंड, लाइट व प्रमुख विक्रेता
+                    २. भंडारा महाप्रसाद, हलवाई, राशन एवं स्वल्पाहार
                   </h4>
                   <span className="font-serif font-black text-rose-900 text-lg">
-                    ₹{CENTRAL_TREASURY_DATA.tentSoundLightVendors.toLocaleString('en-IN')}
+                    ₹14,542
                   </span>
                 </div>
                 <p className="text-xs text-stone-600 leading-relaxed">
-                  टेंट एडवांस व किराया (₹2100+₹1500), साउंड सिस्टम (₹2500+₹650), लाइट व जनरेटर मोनू (₹1200), प्रमुख व्यवस्था श्रीवास्तव जी (₹5000), आदि।
+                  भंडारा हलवाई जैन (₹3,500), D-Mart किराना राशन (₹5,615), छोले (₹356), दोने-पत्तल (₹1,610), ताजी सब्जी व सलाद (₹1,190), दूध (₹900), पुरस्कार समोसे (₹421), चिप्स-कुरकुरे (₹350), समोसे (₹250), चाय-नाश्ता (₹350)।
+                </p>
+              </div>
+
+              {/* Category 3: Daily Pooja & Visarjan */}
+              <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm space-y-3">
+                <div className="flex items-center justify-between border-b border-stone-200 pb-2">
+                  <h4 className="font-serif font-bold text-[#780016] text-base">
+                    ३. दैनिक पूजन सामग्री, भोग, पुष्प, विसर्जन व व्यवस्था
+                  </h4>
+                  <span className="font-serif font-black text-rose-900 text-lg">
+                    ₹15,135
+                  </span>
+                </div>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  दैनिक पूजन सामग्री (₹3,250 + ₹1,843 प्रदीप जैन), मोदक भोग फल व मिष्ठान (₹2,850), ताजे पुष्प व मालाएं (₹1,452 + ₹800), हवन समिधा व नारियल (₹900), पतंजलि घी-रुई-पान-जनेऊ (₹635), विसर्जन सामग्री (₹550), ड्रायफ्रूट घी (₹530), सेवा मानदेय (₹500), आंटी पान कपूर (₹470), दुर्गा सफाई (₹300), डेकोरेशन पत्ती (₹280), प्रसाद (₹265), लड्डू/फल (₹260), मिठाई (₹250)।
                 </p>
               </div>
 
               {/* Total Summary */}
               <div className="bg-rose-50 rounded-2xl border-2 border-rose-300 p-4 flex items-center justify-between font-bold text-rose-950">
-                <span className="text-sm">कुल प्रमाणित दर्ज व्यय:</span>
+                <span className="text-sm">सकल कुल प्रमाणित प्रत्यक्ष व्यय:</span>
                 <span className="text-2xl font-serif font-black text-rose-900">
-                  ₹{CENTRAL_TREASURY_DATA.totalOutflow.toLocaleString('en-IN')}
+                  ₹{CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')}
                 </span>
               </div>
             </div>

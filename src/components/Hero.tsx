@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, ArrowDown, ShieldCheck, Image as ImageIcon } from 'lucide-react';
 import { FestiveArtwork } from './FestiveArtwork';
-import { CENTRAL_TREASURY_DATA, GROSS_COLLECTION_DATA } from '../data/festivalData';
+import { CENTRAL_TREASURY_DATA, GROSS_COLLECTION_DATA, CONSOLIDATED_FESTIVAL_AUDIT } from '../data/festivalData';
 import { devotionalAudio } from '../utils/devotionalAudio';
 import { DrilldownTab } from './AccountingDetailDrawer';
 
@@ -277,36 +277,36 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenAccounting }) => {
               className="bg-[#380009]/80 hover:bg-[#4D000C] border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md transition-all group hover:scale-[1.02] cursor-pointer"
             >
               <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1 flex items-center justify-center gap-1">
-                <span>{lang === 'hi' ? 'कुल केन्द्रीय व्यय' : 'Central Outflow'}</span>
+                <span>{lang === 'hi' ? 'कुल उत्सव व्यय' : 'Festival Expenses'}</span>
                 <span className="text-[10px] text-[#FFA07A] underline group-hover:text-white">विवरण</span>
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-[#FFA07A]">
-                ₹{CENTRAL_TREASURY_DATA.totalOutflow.toLocaleString('en-IN')}
+                ₹{CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')}
               </span>
             </button>
 
             <button
-              onClick={() => onOpenAccounting ? onOpenAccounting('central') : scrollTo('financials')}
+              onClick={() => onOpenAccounting ? onOpenAccounting('overview') : scrollTo('financials')}
               className="bg-[#380009]/80 hover:bg-[#4D000C] border border-[#D4AF37]/40 rounded-2xl p-4 text-center backdrop-blur-sm shadow-md transition-all group hover:scale-[1.02] cursor-pointer"
             >
               <span className="block text-xs text-[#FFFDF7]/70 font-medium mb-1 flex items-center justify-center gap-1">
-                <span>{lang === 'hi' ? 'प्रारंभिक शेष' : 'Initial Balance'}</span>
-                <span className="text-[10px] text-stone-300 underline group-hover:text-white">लेखा</span>
+                <span>{lang === 'hi' ? 'सहयोगी परिवार' : 'Contributors'}</span>
+                <span className="text-[10px] text-stone-300 underline group-hover:text-white">सूची</span>
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-[#FFFDF7]">
-                ₹{CENTRAL_TREASURY_DATA.preliminaryHandBalance.toLocaleString('en-IN')}
+                80 सदस्य
               </span>
             </button>
 
             <button
-              onClick={() => onOpenAccounting ? onOpenAccounting('central') : scrollTo('financials')}
+              onClick={() => onOpenAccounting ? onOpenAccounting('overview') : scrollTo('financials')}
               className="bg-gradient-to-br from-[#2A0006] to-[#45000A] hover:from-[#3D0009] hover:to-[#5A0010] border-2 border-emerald-400 rounded-2xl p-4 text-center shadow-xl transition-all group hover:scale-[1.02] cursor-pointer"
             >
               <span className="block text-xs text-emerald-300 font-bold mb-1">
-                {lang === 'hi' ? 'अंतिम शुद्ध बचत' : 'Final Net Savings'}
+                {lang === 'hi' ? 'कुल बची अधिशेष राशि' : 'Total Net Surplus'}
               </span>
               <span className="text-xl sm:text-2xl md:text-3xl font-serif font-black text-emerald-400">
-                ₹{CENTRAL_TREASURY_DATA.finalNetSavings.toLocaleString('en-IN')}
+                ₹{CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')}
               </span>
             </button>
           </div>
