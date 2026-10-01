@@ -34,10 +34,10 @@ export interface GrossCollectionBreakdown {
 }
 
 export const GROSS_COLLECTION_DATA: GrossCollectionBreakdown = {
-  grossTotal: 64651,
+  grossTotal: 65073,
   onlineChandaTotal: 33919,
-  cashChandaTotal: 27032,
-  chandaSubtotal: 60951,
+  cashChandaTotal: 27454,
+  chandaSubtotal: 61373,
   bhandaraTotal: 3700,
   bhandaraBreakdown: [
     {
@@ -46,8 +46,8 @@ export const GROSS_COLLECTION_DATA: GrossCollectionBreakdown = {
       amount: 600,
       modeHi: "ऑनलाइन",
       modeEn: "Online",
-      roleHi: "अतिरिक्त भंडारा ऑनलाइन सहयोग",
-      roleEn: "Additional Online Bhandara Seva",
+      roleHi: "अतिरिक्त भंडारा ऑनलाइन सहयोग (मूलतः ऑनलाइन चंदा दानदाता)",
+      roleEn: "Additional Online Bhandara Seva (Also Online Donor)",
     },
     {
       nameHi: "श्रीमती सुमन कटियार जी",
@@ -55,8 +55,8 @@ export const GROSS_COLLECTION_DATA: GrossCollectionBreakdown = {
       amount: 600,
       modeHi: "ऑनलाइन",
       modeEn: "Online",
-      roleHi: "अतिरिक्त भंडारा ऑनलाइन सहयोग",
-      roleEn: "Additional Online Bhandara Seva",
+      roleHi: "अतिरिक्त भंडारा ऑनलाइन सहयोग (मूलतः ऑनलाइन चंदा दानदाता)",
+      roleEn: "Additional Online Bhandara Seva (Also Online Donor)",
     },
     {
       nameHi: "डॉ. आशीष श्रीवास्तव जी",
@@ -64,8 +64,8 @@ export const GROSS_COLLECTION_DATA: GrossCollectionBreakdown = {
       amount: 1000,
       modeHi: "नकद",
       modeEn: "Cash",
-      roleHi: "भंडारा नकद समर्पित सहयोग",
-      roleEn: "Dedicated Cash Bhandara Seva",
+      roleHi: "भंडारा नकद समर्पित सहयोग (मूलतः नकद चंदा दानदाता)",
+      roleEn: "Dedicated Cash Bhandara Seva (Also Cash Donor)",
     },
     {
       nameHi: "संतोष कुशवाहा जी एवं गुड्डू भैया",
@@ -135,17 +135,17 @@ export interface ConsolidatedFestivalAudit {
 }
 
 export const CONSOLIDATED_FESTIVAL_AUDIT: ConsolidatedFestivalAudit = {
-  grossCollection: 64651,
+  grossCollection: 65073,
   shashiDirectExpenses: 38974,
   shrivastavDirectExpenses: 21155,
   interAccountFundTransfer: 0,
-  totalConsolidatedExpenses: 60129,
-  netAvailableSurplus: 4522,
+  totalConsolidatedExpenses: 63724,
+  netAvailableSurplus: 1349,
   surplusBreakdown: {
-    cashWithOtherCollectors: 2500,
-    bhandaraCashHeld: 1200,
+    cashWithOtherCollectors: 1200,
+    bhandaraCashHeld: 0,
     onlineAuditDifference: 950,
-    netHandBalanceAdjustment: -128,
+    netHandBalanceAdjustment: -801,
   },
 };
 
@@ -345,6 +345,7 @@ export const CASH_DONORS_32: DonorRecord[] = [
   { sNo: 32, nameHi: "रघुवीर बुंदेला", nameEn: "Raghuveer Bundela", amount: 1101, mode: "Cash", type: "chanda" },
   { sNo: 33, nameHi: "नागर जी", nameEn: "Nagar Ji", amount: 111, mode: "Cash", type: "chanda" },
   { sNo: 34, nameHi: "मनीष जी 76", nameEn: "Manish Ji 76", amount: 500, mode: "Cash", type: "chanda" },
+  { sNo: 35, nameHi: "अमूल्यम", nameEn: "Amulyam", amount: 422, mode: "Cash", type: "chanda" },
 ];
 
 export interface ExpenseRecord {
@@ -365,7 +366,7 @@ export const EXPENSE_DETAILS: ExpenseRecord[] = [
     id: "tent-sound-vendors",
     categoryHi: "१. टेंट, पंडाल, साउंड, लाइट, जनरेटर व डेकोरेशन व्यवस्था",
     categoryEn: "1. Pandal Setup, Sound System, Lighting, Power & Decor",
-    totalAmount: 30452,
+    totalAmount: 31252,
     items: [
       { nameHi: "मुख्य टेंट व्यवस्था, वॉटरप्रूफ शेड व बैठक कुर्सियां", nameEn: "Grand Pandal Setup, Waterproof Roof & Chairs", amount: 12500 },
       { nameHi: "साउंड सिस्टम, माइक, एम्पलीफायर व भजन संगीत व्यवस्था", nameEn: "Sound System, Microphones, Amplifiers & Audio", amount: 5800 },
@@ -373,33 +374,35 @@ export const EXPENSE_DETAILS: ExpenseRecord[] = [
       { nameHi: "टेंट व्यवस्था का अंतिम बकाया भुगतान", nameEn: "Tent Setup Final Clearance Payment", amount: 3000 },
       { nameHi: "जनरेटर बैकअप, डीजल व विद्युत सुरक्षा व्यवस्था", nameEn: "Generator Power Backup, Fuel & Electrical Wiring", amount: 2000 },
       { nameHi: "ढोल-ताशा वादक दल एवं विसर्जन वाहन व्यवस्था", nameEn: "Dhol-Tasha Troupe & Visarjan Transport Logistics", amount: 1500 },
-      { nameHi: "अतिरिक्त डेकोरेशन सामग्री (पत्ती, फेवीकोल, पिन आदि)", nameEn: "Additional Decoration Material (Leaves, Fevicol, Pins)", amount: 351 },
+      { nameHi: "ढोल वाला (अतिरिक्त)", nameEn: "Additional Dhol Wala", amount: 800 },
       { nameHi: "अतिरिक्त डेकोरेशन व विद्युत सज्जा व्यय", nameEn: "Additional Decoration & Lighting Expense", amount: 650 },
+      { nameHi: "अतिरिक्त डेकोरेशन सामग्री (पत्ती, फेवीकोल, पिन आदि)", nameEn: "Additional Decoration Material (Leaves, Fevicol, Pins)", amount: 351 },
     ],
   },
   {
     id: "bhandara-refreshments",
     categoryHi: "२. भंडारा महाप्रसाद, हलवाई, राशन एवं स्वल्पाहार",
     categoryEn: "2. Grand Bhandara Feast, Chef, Provisions & Refreshments",
-    totalAmount: 14542,
+    totalAmount: 17237,
     items: [
-      { nameHi: "भंडारा महाप्रसाद हलवाई (जैन)", nameEn: "Bhandara Chef / Halwai (Jain)", amount: 3500 },
       { nameHi: "किराना राशन सामग्री (D-Mart)", nameEn: "Bhandara Grocery Provisions (D-Mart)", amount: 5615 },
-      { nameHi: "छोले सामग्री (D-Mart)", nameEn: "Chhole Provisions (D-Mart)", amount: 356 },
+      { nameHi: "भंडारा महाप्रसाद हलवाई (जैन)", nameEn: "Bhandara Chef / Halwai (Jain)", amount: 3500 },
+      { nameHi: "गब्बर (उपहार / GIFT)", nameEn: "Gabbar (Gift Expense)", amount: 1694 },
       { nameHi: "दोने व पत्तल (भंडारा वितरण व्यवस्था)", nameEn: "Dishes & Pattal (Bhandara Serving)", amount: 1610 },
       { nameHi: "ताजी सब्जी एवं सलाद (भंडारा)", nameEn: "Fresh Vegetables & Salad", amount: 1190 },
+      { nameHi: "संजय (विशेष सहयोग व्यय)", nameEn: "Sanjay (Special Expense)", amount: 1001 },
       { nameHi: "दूध (भोग, चरणामृत एवं भंडारा)", nameEn: "Fresh Milk for Bhog & Panchamrit", amount: 900 },
       { nameHi: "पुरस्कार वितरण — बच्चों के लिए 60 समोसे", nameEn: "Awards Ceremony — 60 Samosas for Children", amount: 421 },
       { nameHi: "बच्चों का स्वल्पाहार — चिप्स + कुरकुरे", nameEn: "Children Refreshment — Chips + Kurkure", amount: 350 },
-      { nameHi: "समोसे 25 (रुचिकर)", nameEn: "25 Samosas (Ruchikar)", amount: 250 },
       { nameHi: "गणपति लाते / Booking करते समय चाय नाश्ता", nameEn: "Arrival & Booking Refreshments", amount: 350 },
+      { nameHi: "समोसे 25 (रुचिकर)", nameEn: "25 Samosas (Ruchikar)", amount: 250 },
     ],
   },
   {
     id: "daily-pooja-visarjan",
     categoryHi: "३. दैनिक पूजन सामग्री, भोग, पुष्प, विसर्जन व व्यवस्था",
     categoryEn: "3. Daily Pooja Samagri, Offerings, Flowers, Visarjan & Logistics",
-    totalAmount: 15135,
+    totalAmount: 15235,
     items: [
       { nameHi: "दैनिक पूजन सामग्री, रोली, चंदन, कपूर, धूप, दीप", nameEn: "Daily Pooja Samagri, Roli, Chandan, Dhoop, Deep", amount: 3250 },
       { nameHi: "मोदक भोग, लड्डू, दैनिक फल व पंचामृत प्रसाद", nameEn: "Modak Bhog, Laddoo, Fruits & Panchamrit Prasad", amount: 2850 },
@@ -417,6 +420,7 @@ export const EXPENSE_DETAILS: ExpenseRecord[] = [
       { nameHi: "प्रसाद चिरौंजी, लाई, शकर, पान आदि", nameEn: "Prasad Chiranji, Sugar & Offerings", amount: 265 },
       { nameHi: "दैनिक पूजन हेतु लड्डू एवं केले", nameEn: "Daily Pooja Laddoo & Bananas", amount: 260 },
       { nameHi: "मिठाई प्रसाद व केले", nameEn: "Sweets Prasad & Bananas", amount: 250 },
+      { nameHi: "बधाई / शगुन (हिजड़े)", nameEn: "Traditional Blessing Shagun Expense", amount: 100 },
     ],
   },
 ];

@@ -99,7 +99,7 @@ export const ExpenseBreakdown: React.FC<ExpenseBreakdownProps> = ({ lang, onOpen
                 ₹{CONSOLIDATED_FESTIVAL_AUDIT.grossCollection.toLocaleString('en-IN')}
               </div>
               <p className="text-xs text-stone-400 mt-1">
-                {lang === 'hi' ? '42 ऑनलाइन + 34 नकद + 4 भंडारा' : '80 community contributors'}
+                {lang === 'hi' ? '42 ऑनलाइन + 35 नकद + 4 भंडारा' : '77 unique contributor households'}
               </p>
             </div>
 
@@ -111,7 +111,7 @@ export const ExpenseBreakdown: React.FC<ExpenseBreakdownProps> = ({ lang, onOpen
                 ₹{CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')}
               </div>
               <p className="text-xs text-stone-400">
-                {lang === 'hi' ? 'टेंट ₹30,452 + भंडारा ₹14,542 + पूजा ₹15,135' : 'All 3 direct festival categories'}
+                {lang === 'hi' ? 'टेंट ₹31,252 + भंडारा ₹17,237 + पूजा ₹15,235' : 'All 3 direct festival categories'}
               </p>
             </div>
 
@@ -123,7 +123,7 @@ export const ExpenseBreakdown: React.FC<ExpenseBreakdownProps> = ({ lang, onOpen
                 ₹{CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')}
               </div>
               <p className="text-xs text-emerald-200/80 mt-1">
-                {lang === 'hi' ? 'संकलन ₹64,651 − कुल व्यय ₹60,129' : 'Gross collection minus certified expenses'}
+                {lang === 'hi' ? 'संकलन ₹65,073 − कुल व्यय ₹63,724' : 'Gross collection minus certified expenses'}
               </p>
             </div>
           </div>

@@ -157,7 +157,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                   80 सदस्य
                 </div>
                 <p className="text-xs text-[#FFFDF7]/80 mt-1">
-                  {lang === 'hi' ? '42 ऑनलाइन + 34 नकद + 4 समर्पित भंडारा' : '42 Online + 34 Cash + 4 Bhandara Seva'}
+                  {lang === 'hi' ? '42 ऑनलाइन + 35 नकद + 3 विशेष भंडारा' : '42 Online + 35 Cash + 3 Bhandara'}
                 </p>
               </div>
             </div>
@@ -188,7 +188,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
               </h3>
               <p className="text-xs sm:text-sm text-stone-600 font-sans">
                 {lang === 'hi'
-                  ? `ऑनलाइन चंदा (42 सदस्य) + नकद चंदा (34 सदस्य) + समर्पित भंडारा सहयोग की पाई-पाई का पारदर्शी समीकरण`
+                  ? `ऑनलाइन चंदा (42 सदस्य) + नकद चंदा (35 सदस्य) + समर्पित भंडारा सहयोग की पाई-पाई का पारदर्शी समीकरण`
                   : 'Transparent calculation combining Online records, Cash records, and dedicated Bhandara seva.'}
               </p>
             </div>
@@ -205,7 +205,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                 </div>
                 <Plus className="w-4 h-4 text-[#D4AF37]" />
                 <div className="bg-white/10 px-3.5 py-2 rounded-xl border border-white/20">
-                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">नकद (34)</span>
+                  <span className="block text-[10px] text-[#FFDF80] font-sans font-normal">नकद (35)</span>
                   <span className="text-white text-base sm:text-lg">₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}</span>
                 </div>
                 <Equal className="w-4 h-4 text-[#D4AF37]" />
@@ -239,13 +239,13 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                       <Smartphone className="w-3.5 h-3.5 text-blue-600" />
                       ऑनलाइन चंदा
                     </span>
-                    <span className="text-xs text-stone-500 font-bold">40 प्रविष्टियाँ</span>
+                    <span className="text-xs text-stone-500 font-bold">42 प्रविष्टियाँ</span>
                   </div>
                   <div className="text-2xl sm:text-3xl font-serif font-black text-stone-900 group-hover:text-blue-900 mt-1">
                     ₹{GROSS_COLLECTION_DATA.onlineChandaTotal.toLocaleString('en-IN')}
                   </div>
                   <p className="text-xs text-stone-600 mt-2 leading-relaxed">
-                    कॉलोनी के 40 सदस्यों द्वारा सीधे UPI / QR कोड के माध्यम से समर्पित राशि।
+                    कॉलोनी के 42 सदस्यों द्वारा सीधे UPI / QR कोड के माध्यम से समर्पित राशि।
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-stone-200 text-right">
@@ -257,7 +257,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                     }}
                     className="text-xs font-bold text-blue-700 hover:text-blue-900"
                   >
-                    40 नाम व साक्ष्य देखें →
+                    42 नाम व साक्ष्य देखें →
                   </button>
                 </div>
               </div>
@@ -273,13 +273,13 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                       <Banknote className="w-3.5 h-3.5 text-emerald-600" />
                       नकद चंदा
                     </span>
-                    <span className="text-xs text-stone-500 font-bold">32 प्रविष्टियाँ</span>
+                    <span className="text-xs text-stone-500 font-bold">35 प्रविष्टियाँ</span>
                   </div>
                   <div className="text-2xl sm:text-3xl font-serif font-black text-stone-900 group-hover:text-emerald-900 mt-1">
                     ₹{GROSS_COLLECTION_DATA.cashChandaTotal.toLocaleString('en-IN')}
                   </div>
                   <p className="text-xs text-stone-600 mt-2 leading-relaxed">
-                    कॉलोनी के 32 सदस्यों द्वारा नकद रसीद व संग्रह द्वारा समर्पित राशि।
+                    कॉलोनी के 35 सदस्यों द्वारा नकद रसीद व संग्रह द्वारा समर्पित राशि।
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-stone-200 text-right">
@@ -403,7 +403,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                     ₹{CONSOLIDATED_FESTIVAL_AUDIT.grossCollection.toLocaleString('en-IN')}
                   </div>
                   <p className="text-[11px] text-stone-300 mt-1.5 leading-relaxed">
-                    42 ऑनलाइन (₹33,919) + 34 नकद (₹27,032) + 4 भंडारा (₹3,700)
+                    42 ऑनलाइन (₹33,919) + 35 नकद (₹27,454) + 4 भंडारा (₹3,700)
                   </p>
                 </div>
 
@@ -413,7 +413,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                     ₹{CONSOLIDATED_FESTIVAL_AUDIT.totalConsolidatedExpenses.toLocaleString('en-IN')}
                   </div>
                   <p className="text-[11px] text-stone-300 mt-1.5 leading-relaxed">
-                    पंडाल/साउंड (₹30,452) + भंडारा राशन (₹14,542) + पूजन/विसर्जन (₹15,135)
+                    पंडाल/साउंड (₹31,252) + भंडारा/उपहार (₹17,237) + पूजन/विसर्जन (₹15,235)
                   </p>
                 </div>
 
@@ -423,7 +423,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
                     ₹{CONSOLIDATED_FESTIVAL_AUDIT.netAvailableSurplus.toLocaleString('en-IN')}
                   </div>
                   <p className="text-[11px] text-emerald-100/90 mt-1.5 leading-relaxed font-semibold">
-                    सकल संकलन (₹64,651) − कुल वास्तविक खर्च (₹60,129)
+                    सकल संकलन (₹65,073) − कुल वास्तविक खर्च (₹63,724)
                   </p>
                 </div>
               </div>
@@ -458,7 +458,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
 
                 <div className="pt-2 border-t border-white/10 flex justify-between items-center text-xs text-stone-400">
                   <span>* मूल हस्तलिखित वाउचर व पंजिका के आधार पर सत्यापित।</span>
-                  <span className="font-bold text-emerald-400">कुल शुद्ध बचत = ₹4,522</span>
+                  <span className="font-bold text-emerald-400">कुल शुद्ध बचत = ₹1,349</span>
                 </div>
               </div>
             </div>
@@ -468,7 +468,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ lang, on
               <ShieldCheck className="w-4 h-4 text-[#780016] shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold text-stone-900 block mb-0.5">लेखा पारदर्शिता:</span>
-                पूरे उत्सव का कुल संकलन **₹64,651** (42 ऑनलाइन ₹33,919 + 34 नकद ₹27,032 + 4 भंडारा ₹3,700) है। कुल प्रमाणित प्रत्यक्ष खर्च **₹60,129** (शशि जी खाता ₹38,974 + श्रीवास्तव अंकल पंजिका ₹21,155) होने के उपरांत **₹4,522** की कुल शुद्ध बचत सुरक्षित है।
+                पूरे उत्सव का कुल संकलन **₹65,073** (42 ऑनलाइन ₹33,919 + 35 नकद ₹27,454 + 4 भंडारा ₹3,700) है। कुल प्रमाणित प्रत्यक्ष खर्च **₹63,724** होने के उपरांत **₹1,349** की कुल शुद्ध बचत सुरक्षित है। (नोट: कुछ भंडारा सहयोगी दानदाता सूची में भी सम्मिलित हैं, अतः यूनिक परिवार 77 हैं)।
               </div>
             </div>
           </div>

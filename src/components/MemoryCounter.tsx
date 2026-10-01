@@ -43,7 +43,7 @@ export const MemoryCounter: React.FC<MemoryCounterProps> = ({ lang }) => {
               <Users className="w-5 h-5" />
             </div>
             <div className="text-3xl sm:text-4xl font-serif font-black text-white">
-              40
+              42
             </div>
             <span className="text-xs sm:text-sm text-[#FFFDF7]/90 font-medium block mt-1">
               {lang === 'hi' ? 'ऑनलाइन चंदा रिकॉर्ड' : 'Online Donor Entries'}

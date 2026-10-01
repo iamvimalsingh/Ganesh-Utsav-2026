@@ -143,7 +143,7 @@ export default function App() {
           onCloseExternalItem={() => setActiveEvidenceItem(null)}
         />
 
-        {/* 11. Chanda Collection Ledger: Online Chanda (40) & Cash Chanda (32) */}
+        {/* 11. Chanda Collection Ledger: Online Chanda (42) & Cash Chanda (35) */}
         <ChandaLedger lang={lang} onOpenEvidence={handleOpenEvidence} />
 
         {/* 12. Itemized Expense Breakdown */}
